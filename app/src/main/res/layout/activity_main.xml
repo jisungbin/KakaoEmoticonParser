@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_searchbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        app:cardCornerRadius="@dimen/margin_half"
+        app:cardElevation="@dimen/margin_default"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:maxLines="1"
+            android:singleLine="true"
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/search_emoticon"
+            android:importantForAutofill="no"
+            android:drawableEnd="@drawable/ic_baseline_settings_24"
+            android:backgroundTint="@color/colorGray"
+            android:inputType="text"
+            android:padding="@dimen/margin_default" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_emoticon"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:layout_margin="@dimen/margin_default"
+        tools:listitem="@layout/layout_emoticon_panel"
+        app:layout_constraintTop_toBottomOf="@id/cv_searchbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
