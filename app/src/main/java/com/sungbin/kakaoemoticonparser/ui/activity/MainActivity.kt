@@ -8,10 +8,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.`interface`.EmoticonInterface
-import com.sungbin.kakaoemoticonparser.adapter.EmoticonAdapter
-import com.sungbin.kakaoemoticonparser.ui.dialog.ProgressDialog
+import com.sungbin.kakaoemoticonparser.adapter.EmoticonListAdapter
+import com.sungbin.kakaoemoticonparser.ui.dialog.EmoticonDetailBottomDialog
+import com.sungbin.kakaoemoticonparser.ui.dialog.LoadingDialog
 import com.sungbin.kakaoemoticonparser.utils.ParseUtils
-import com.sungbin.sungbintool.LogUtils
 import com.sungbin.sungbintool.PermissionUtils
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -19,10 +19,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Named("SEARCH")
     @Inject
     lateinit var client: Retrofit
 
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val loadingDialog by lazy {
-        ProgressDialog(this)
+        LoadingDialog(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +72,11 @@ class MainActivity : AppCompatActivity() {
                     .subscribe({ response ->
                         val content = response.string()
                         ParseUtils.getSearchedData(content)?.let {
-                            rv_emoticon.adapter = EmoticonAdapter(it)
-                            LogUtils.w(it.random().url)
+                            rv_emoticon.adapter = EmoticonListAdapter(it).apply {
+                                setOnItemClickListener { item ->
+                                    EmoticonDetailBottomDialog(this@MainActivity, item).show(supportFragmentManager, "")
+                                }
+                            }
                         } ?: showSearchNull()
                     }, { throwable ->
                         throwable.printStackTrace()

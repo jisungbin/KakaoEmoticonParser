@@ -17,7 +17,7 @@ data class EmoticonData(
     val isBig: Boolean,
     val haveMotion: Boolean,
     val haveSound: Boolean,
-    val id: Int
+    var originTitle: String
 ) {
     companion object {
         @JvmStatic

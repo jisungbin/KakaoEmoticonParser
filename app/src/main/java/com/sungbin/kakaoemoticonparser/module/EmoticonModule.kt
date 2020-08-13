@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -17,19 +18,19 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-class EmoticonModule {
+object EmoticonModule {
 
-    var okHttpClient = OkHttpClient.Builder()
+    private var defaultOkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
-        .build()
 
     @Singleton
+    @Named("SEARCH")
     @Provides
-    fun instance() = Retrofit.Builder()
+    fun provideSearchInstance() = Retrofit.Builder()
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .baseUrl("https://e.kakao.com/")
-        .client(okHttpClient)
+        .client(defaultOkHttpClient.build())
         .build()
 }

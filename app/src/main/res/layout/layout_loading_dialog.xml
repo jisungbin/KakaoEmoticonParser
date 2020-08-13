@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_default"
-    android:background="@drawable/bg_round_all_layout"
+    android:background="@drawable/bg_round_layout_all"
     android:backgroundTint="@color/colorWhite"
     tools:ignore="MissingConstraints,RtlSymmetry" >
 

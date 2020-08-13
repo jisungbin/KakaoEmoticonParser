@@ -1,8 +1,6 @@
 package com.sungbin.kakaoemoticonparser.adapter
 
-import android.graphics.Rect
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
@@ -16,15 +14,35 @@ import com.sungbin.kakaoemoticonparser.model.EmoticonData
  * Created by SungBin on 2020-07-20.
  */
 
-class EmoticonAdapter constructor(
+class EmoticonListAdapter constructor(
     private val items: List<EmoticonData>
-) : RecyclerView.Adapter<EmoticonAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<EmoticonListAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onClick(item: EmoticonData)
+    }
+
+    private var listener: OnItemClickListener? = null
+    fun setOnItemClickListener(action: (EmoticonData) -> Unit) {
+        listener = object : OnItemClickListener {
+            override fun onClick(item: EmoticonData) {
+                action(item)
+            }
+        }
+    }
 
     class ViewHolder(private val itemBinding: LayoutEmoticonPanelBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bindViewHolder(item: EmoticonData) {
             itemBinding.item = item
+            itemBinding.tvName.isSelected = true
+        }
+
+        fun setOnClick(listener: OnItemClickListener?, item: EmoticonData) {
+            itemBinding.cvPanel.setOnClickListener {
+                listener?.onClick(item)
+            }
         }
     }
 
@@ -38,6 +56,7 @@ class EmoticonAdapter constructor(
 
     override fun onBindViewHolder(@NonNull viewholder: ViewHolder, position: Int) {
         viewholder.bindViewHolder(items[position])
+        viewholder.setOnClick(listener, items[position])
     }
 
     override fun getItemCount() = items.size

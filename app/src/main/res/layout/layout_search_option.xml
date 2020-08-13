@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_default"
     android:orientation="vertical"
-    android:background="@drawable/bg_round_top_layout"
+    android:background="@drawable/bg_round_layout_top"
     android:backgroundTint="@color/colorWhite"
     tools:ignore="MissingConstraints,RtlSymmetry" >
 

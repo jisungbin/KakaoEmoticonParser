@@ -60,6 +60,7 @@ dependencies {
     implementation(Dependencies.Essential.LifeCycleViewModel)
     implementation(Dependencies.Essential.LifeCycleExtensions)
 
+    implementation(Dependencies.Network.Jsoup)
     implementation(Dependencies.Network.OkHttp)
     implementation(Dependencies.Network.Retrofit)
     implementation(Dependencies.Network.RxRetrofit)

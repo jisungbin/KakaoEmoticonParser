@@ -18,7 +18,7 @@ import com.sungbin.sungbintool.extensions.get
 import com.sungbin.sungbintool.extensions.plusAssign
 
 
-class ProgressDialog constructor(private val activity: Activity) {
+class LoadingDialog constructor(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog
     private lateinit var layout: View

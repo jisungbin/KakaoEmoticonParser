@@ -39,6 +39,7 @@ object Versions {
 
     const val Paging = "2.1.0-beta01"
 
+    const val Jsoup = "1.12.1"
     const val OkHttp = "4.8.0"
     const val Retrofit = "2.9.0"
     const val RxRetrofit = "2.9.0"
@@ -57,6 +58,7 @@ object Dependencies {
     }
 
     object Network {
+        const val Jsoup = "org.jsoup:jsoup:${Versions.Jsoup}"
         const val Retrofit = "com.squareup.okhttp3:okhttp:${Versions.OkHttp}"
         const val OkHttp = "com.squareup.retrofit2:retrofit:${Versions.Retrofit}"
         const val RxRetrofit = "com.squareup.retrofit2:adapter-rxjava3:${Versions.RxRetrofit}"
