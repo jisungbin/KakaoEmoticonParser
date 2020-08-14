@@ -42,32 +42,35 @@
 가능하시다면 눌러주세요!
 
 # 사용 라이브러리
+### Essential
 1. Anko
-2. Legacy
-3. Kotlin
-4. CoreKtx
-5. AppCompat
-6. FragmentKtx
-7. LifeCycleViewModel 
-8. LifeCycleExtensions
+2. Kotlin
+3. CoreKtx
 
+### Dependency Injection
 1. Hilt
-2. HiltAndroidX
 
+### UI
 1. Glide
 2. CardView
 3. ConstraintLayout
 
+### Tools
 1. AndroidUtils
-2. GsonConverter
-3. CrashReporter
+2. CrashReporter
 
+### Animator
 1. AnimatorLottie
-2. AnimatorTool
-3. AnimatorYoYo
 
-1. Paging
+### Network
+1. Jsoup
+2. OkHttp
+3. Retrofit
 
+### ReactiveX
+1. RxAndroid
+2. RxKotlin
+3. RxRetrofit
 
 
 # 라이선스
