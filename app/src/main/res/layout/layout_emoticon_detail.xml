@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,18 +18,16 @@
             android:id="@+id/iv_thumbnail"
             android:layout_width="300dp"
             android:layout_height="550dp"
-            android:layout_marginBottom="@dimen/margin_twice_and_half"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@color/colorGreen" />
 
         <Button
-            android:layout_marginTop="@dimen/margin_twice"
+            android:layout_marginTop="@dimen/margin_default"
             android:id="@+id/btn_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_default"
             android:background="@drawable/bg_round_layout_all"
             android:backgroundTint="@color/colorWhite"
             android:elevation="@dimen/margin_default"

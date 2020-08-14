@@ -6,14 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.content.edit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.kakaoemoticonparser.R
-import com.sungbin.sungbintool.extensions.get
 import org.jetbrains.anko.support.v4.defaultSharedPreferences
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SearchOptionBottomDialog : BottomSheetDialogFragment() {
 

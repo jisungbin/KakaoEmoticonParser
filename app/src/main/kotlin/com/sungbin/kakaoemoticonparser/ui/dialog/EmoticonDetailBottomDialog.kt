@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.ScrollView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -57,6 +58,12 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
             .with(activity)
             .load("https://item.kakaocdn.net/dw/$code.gift.jpg")
             .into(layout[R.id.iv_thumbnail] as ImageView)
+
+        (layout[R.id.sv_container] as ScrollView).let {
+            it.post {
+                it.fullScroll(ScrollView.FOCUS_DOWN)
+            }
+        }
 
         (layout[R.id.btn_download] as Button).setOnClickListener {
             downloadDialog.show()
