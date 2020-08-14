@@ -60,7 +60,7 @@
 2. CrashReporter
 
 ### Animator
-1. AnimatorLottie
+1. Lottie
 
 ### Network
 1. Jsoup
