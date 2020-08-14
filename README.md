@@ -21,7 +21,7 @@
 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.0.2%20-%20alpha(13)-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
 
 ### 만약 다운로드가 `.bin` 파일로 될 때!
-이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.1)에서 직접 `apk` 파일을 다운받아 보세요!
+이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.2)에서 직접 `apk` 파일을 다운받아 보세요!
 
 # 핵심 업데이트 로그
 > 자세한 업데이트 내역은 [릴리즈](https://github.com/sungbin5304/KakaoEmoticonParser/releases)를 참고해 주세요!
@@ -31,6 +31,9 @@
 
 ### 1.0.1
 이모티콘 다운과 동시에 미니어 스캐닝 처리 추가
+
+### 1.0.2
+앱 최적화
 
 ----
 
