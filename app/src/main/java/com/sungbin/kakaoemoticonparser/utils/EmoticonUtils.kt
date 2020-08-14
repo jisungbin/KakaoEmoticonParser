@@ -35,7 +35,7 @@ object EmoticonUtils {
     fun download(item: EmoticonData, url: String, index: Int) {
         val rootPath = "${StorageUtils.sdcard}/KakaoEmoticons/${item.title}"
         StorageUtils.createFolder("KakaoEmoticons/${item.title}")
-        val path = "$rootPath/${item.originTitle}_$index.gif"
+        val path = "$rootPath/${item.originTitle}_$index.png"
         File(path).createNewFile()
         ImageDownloadTask().execute(path, url)
     }
