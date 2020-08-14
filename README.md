@@ -18,7 +18,10 @@
 
 # 다운로드
 그렇다면 다운로드는 어떻게?<br/>
-[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.0.0%20-%20alpha(11)-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
+[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.0.1%20-%20alpha(12)-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
+
+## 만약 다운로드가 `.bin` 파일로 될 때!
+이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.1)에서 직접 `apk` 파일 또는 `zip` 파일(압축파일)을 다운받아 보세요!
 
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/sungbin5304/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
