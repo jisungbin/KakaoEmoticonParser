@@ -22,6 +22,7 @@
 
 ### 만약 다운로드가 `bin` 파일로 될 때?
 이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.2)에서 직접 `apk` 파일을 다운받아 보세요!
+또는 `bin` 확장자를 `apk` 확장자로 바꿔보세요.
 
 # 핵심 업데이트 로그
 > 자세한 업데이트 내역은 [릴리즈](https://github.com/sungbin5304/KakaoEmoticonParser/releases)를 참고해 주세요!
@@ -38,7 +39,7 @@
 ----
 
 # 사용료
-사용료는 **1스타** !<br/>
+사용료는 **1스타** 입니다!<br/>
 가능하시다면 눌러주세요!
 
 # 사용 라이브러리
