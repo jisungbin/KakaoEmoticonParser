@@ -38,6 +38,35 @@
 사용료는 **1스타**로 됩니다!<br/>
 가능하시다면 눌러주세요!
 
+# 사용 라이브러리
+1. Anko
+2. Legacy
+3. Kotlin
+4. CoreKtx
+5. AppCompat
+6. FragmentKtx
+7. LifeCycleViewModel 
+8. LifeCycleExtensions
+
+1. Hilt
+2. HiltAndroidX
+
+1. Glide
+2. CardView
+3. ConstraintLayout
+
+1. AndroidUtils
+2. GsonConverter
+3. CrashReporter
+
+1. AnimatorLottie
+2. AnimatorTool
+3. AnimatorYoYo
+
+1. Paging
+
+
+
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/sungbin5304/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
 
