@@ -34,6 +34,10 @@
 
 ----
 
+# 사용료
+사용료는 **1스타**로 됩니다!<br/>
+가능하시다면 눌러주세요!
+
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/sungbin5304/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
 
