@@ -13,19 +13,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.kakaoemoticonparser.R
-import com.sungbin.kakaoemoticonparser.adapter.EmoticonDetailAdapter
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.module.GlideApp
-import com.sungbin.kakaoemoticonparser.utils.EmoticonUtils
 import com.sungbin.kakaoemoticonparser.utils.ParseUtils
 import com.sungbin.sungbintool.Utils
 import com.sungbin.sungbintool.extensions.get
+
 
 class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: EmoticonData) :
     BottomSheetDialogFragment() {
@@ -37,10 +34,6 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
         savedInstanceState: Bundle?
     ): View? {
         val layout = inflater.inflate(R.layout.layout_emoticon_detail, container)
-
-        val loadingDialog = LoadingDialog(activity)
-        loadingDialog.show()
-
         val address = "https://e.kakao.com/t/${item.originTitle}"
         Utils.setUserAgent(ParseUtils.MOBILE_USER_AGENT)
         val content = Utils.getHtml(address)!!
@@ -53,12 +46,6 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
             .load("https://item.kakaocdn.net/dw/$code.gift.jpg")
             .into(layout[R.id.iv_thumbnail] as ImageView)
 
-        (layout[R.id.tv_name] as TextView).text = item.title
-
-        (layout[R.id.rv_emoticon] as RecyclerView).adapter =
-            EmoticonDetailAdapter(EmoticonUtils.getEmoticonList(code) ?: arrayListOf())
-
-        loadingDialog.close()
         return layout
     }
 
@@ -75,4 +62,5 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
         }
         return bottomSheetDialog
     }
+
 }

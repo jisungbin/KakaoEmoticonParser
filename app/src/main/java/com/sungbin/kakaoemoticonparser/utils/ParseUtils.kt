@@ -1,20 +1,8 @@
 package com.sungbin.kakaoemoticonparser.utils
 
-import com.sungbin.kakaoemoticonparser.`interface`.EmoticonInterface
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.utils.extensions.parse
-import com.sungbin.sungbintool.LogUtils
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import org.json.JSONObject
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import java.util.concurrent.TimeUnit
 
 object ParseUtils {
 
@@ -55,7 +43,8 @@ object ParseUtils {
                 )
                 data.add(item)
             }
-            data
+            if (data.isEmpty()) null
+            else data
         } catch (e: Exception) {
             e.printStackTrace()
             null

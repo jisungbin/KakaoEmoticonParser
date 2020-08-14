@@ -47,7 +47,7 @@ class LoadingDialog constructor(private val activity: Activity) {
     }
 
     fun setError(throwable: Throwable) {
-        (layout[R.id.lav_load] as LottieAnimationView).run {
+        (layout[R.id.lav_search] as LottieAnimationView).run {
             setAnimation(R.raw.error)
             playAnimation()
         }

@@ -1,6 +1,5 @@
 package com.sungbin.kakaoemoticonparser.ui.activity
 
-import android.Manifest
 import android.app.Service
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -12,7 +11,9 @@ import com.sungbin.kakaoemoticonparser.adapter.EmoticonListAdapter
 import com.sungbin.kakaoemoticonparser.ui.dialog.EmoticonDetailBottomDialog
 import com.sungbin.kakaoemoticonparser.ui.dialog.LoadingDialog
 import com.sungbin.kakaoemoticonparser.utils.ParseUtils
-import com.sungbin.sungbintool.PermissionUtils
+import com.sungbin.sungbintool.LogUtils
+import com.sungbin.sungbintool.extensions.hide
+import com.sungbin.sungbintool.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -42,8 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setSubtitle(R.string.copyright)
 
-        PermissionUtils.request(this, null, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-
         et_search.imeOptions = EditorInfo.IME_ACTION_SEARCH
         et_search.setOnEditorActionListener { _, actionId, _ ->
             imm.hideSoftInputFromWindow(
@@ -70,11 +69,16 @@ class MainActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
-                        val content = response.string()
-                        ParseUtils.getSearchedData(content)?.let {
+                        ParseUtils.getSearchedData(response.string())?.let {
+                            rv_emoticon.show()
+                            cl_empty.hide(true)
+                            cl_search.hide(true)
                             rv_emoticon.adapter = EmoticonListAdapter(it).apply {
                                 setOnItemClickListener { item ->
-                                    EmoticonDetailBottomDialog(this@MainActivity, item).show(supportFragmentManager, "")
+                                    EmoticonDetailBottomDialog(this@MainActivity, item).show(
+                                        supportFragmentManager,
+                                        ""
+                                    )
                                 }
                             }
                         } ?: showSearchNull()
@@ -87,6 +91,11 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun showSearchNull(){}
+    private fun showSearchNull() {
+        cl_empty.show()
+        cl_search.hide(true)
+        rv_emoticon.hide(true)
+        LogUtils.w("null value")
+    }
 
 }
