@@ -68,7 +68,7 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
 
                 async {
                     for ((index, url) in items.withIndex())  {
-                        EmoticonUtils.download(item, url, index)
+                        EmoticonUtils.download(activity, item, url, index)
                     }
                 }.await()
 

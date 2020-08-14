@@ -53,26 +53,18 @@ dependencies {
 
     implementation(Dependencies.Essential.Anko)
     implementation(Dependencies.Essential.CoreKtx)
-    implementation(Dependencies.Essential.Legacy)
     implementation(Dependencies.Essential.Kotlin)
-    implementation(Dependencies.Essential.AppCompat)
-    implementation(Dependencies.Essential.FragmentKtx)
-    implementation(Dependencies.Essential.LifeCycleViewModel)
-    implementation(Dependencies.Essential.LifeCycleExtensions)
 
     implementation(Dependencies.Network.Jsoup)
     implementation(Dependencies.Network.OkHttp)
     implementation(Dependencies.Network.Retrofit)
     implementation(Dependencies.Network.RxRetrofit)
-    implementation(Dependencies.Network.LoggingInterceptor)
 
     implementation(Dependencies.Rx.Java)
     implementation(Dependencies.Rx.Kotlin)
     implementation(Dependencies.Rx.Android)
 
     implementation(Dependencies.Di.Hilt)
-    implementation(Dependencies.Di.HiltCommon)
-    implementation(Dependencies.Di.HiltLifeCycle)
 
     implementation(Dependencies.Ui.Glide)
     implementation(Dependencies.Ui.CardView)
@@ -80,16 +72,9 @@ dependencies {
 
     implementation(Dependencies.Utils.AndroidUtils)
     implementation(Dependencies.Utils.CrashReporter)
-    implementation(Dependencies.Utils.GsonConverter)
 
-    implementation(Dependencies.Animator.Tool)
-    implementation(Dependencies.Animator.Yoyo)
     implementation(Dependencies.Animator.Lottie)
 
-    implementation(Dependencies.AndroidX.PagingRx)
-    implementation(Dependencies.AndroidX.PagingRuntime)
-
+    kapt(Dependencies.Di.HiltCompiler)
     kapt(Dependencies.Ui.GlideCompiler)
-    kapt(Dependencies.Di.HiltGoogleCompiler)
-    kapt(Dependencies.Di.HiltAndroidXCompiler)
 }

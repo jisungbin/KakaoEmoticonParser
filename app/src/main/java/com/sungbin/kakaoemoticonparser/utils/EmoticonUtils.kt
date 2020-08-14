@@ -1,5 +1,6 @@
 package com.sungbin.kakaoemoticonparser.utils
 
+import android.content.Context
 import android.os.AsyncTask
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.sungbintool.StorageUtils
@@ -32,22 +33,27 @@ object EmoticonUtils {
     private fun getDigitNum(number1: Int, number2: Int) =
         ("0".repeat(number2 - number1.toString().length)) + number1.toString()
 
-    fun download(item: EmoticonData, url: String, index: Int) {
+    fun download(context: Context, item: EmoticonData, url: String, index: Int) {
         val rootPath = "${StorageUtils.sdcard}/KakaoEmoticons/${item.title}"
         StorageUtils.createFolder("KakaoEmoticons/${item.title}")
         val path = "$rootPath/${item.originTitle}_$index.png"
         File(path).createNewFile()
-        ImageDownloadTask().execute(path, url)
+        ImageDownloadTask(context, path, url).execute()
     }
 
-    private class ImageDownloadTask : AsyncTask<String?, Void?, Void?>() {
-        override fun doInBackground(vararg params: String?): Void? {
+    private class ImageDownloadTask constructor(
+        private val context: Context,
+        private val path: String,
+        private val url: String
+    ) :
+        AsyncTask<Void?, Void?, Void?>() {
+        override fun doInBackground(vararg params: Void?): Void? {
             try {
-                val conn = URL(params[1]).openConnection() as HttpURLConnection
+                val conn = URL(url).openConnection() as HttpURLConnection
                 val len = conn.contentLength
                 val tmpByte = ByteArray(len)
                 val `is` = conn.inputStream
-                val fos = FileOutputStream(params[0])
+                val fos = FileOutputStream(path)
 
                 while (true) {
                     val read = `is`.read(tmpByte)
@@ -68,6 +74,7 @@ object EmoticonUtils {
         }
 
         override fun onPostExecute(result: Void?) {
+            MediaScanner.instance(context).mediaScanning(path)
             return
         }
 
