@@ -1,5 +1,6 @@
 package com.sungbin.kakaoemoticonparser.ui.activity
 
+import android.Manifest
 import android.app.Service
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -12,6 +13,7 @@ import com.sungbin.kakaoemoticonparser.ui.dialog.EmoticonDetailBottomDialog
 import com.sungbin.kakaoemoticonparser.ui.dialog.LoadingDialog
 import com.sungbin.kakaoemoticonparser.utils.ParseUtils
 import com.sungbin.sungbintool.LogUtils
+import com.sungbin.sungbintool.PermissionUtils
 import com.sungbin.sungbintool.extensions.hide
 import com.sungbin.sungbintool.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +42,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        PermissionUtils.request(
+            this,
+            "이모티콘 다운로드 요청 시 내부메모리에 접근 권한이 필요합니다.",
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        )
 
         supportActionBar?.setSubtitle(R.string.copyright)
 

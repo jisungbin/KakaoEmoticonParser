@@ -1,5 +1,6 @@
 package com.sungbin.kakaoemoticonparser.ui.dialog
 
+
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -18,14 +19,14 @@ import com.sungbin.sungbintool.extensions.get
 import com.sungbin.sungbintool.extensions.plusAssign
 
 
-class LoadingDialog constructor(private val activity: Activity) {
+class DownloadingDialog constructor(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog
     private lateinit var layout: View
 
     @SuppressLint("InflateParams")
     fun show() {
-        layout = LayoutInflater.from(activity).inflate(R.layout.layout_dialog_loading, null)
+        layout = LayoutInflater.from(activity).inflate(R.layout.layout_dialog_downloading, null)
         val dialog = AlertDialog.Builder(activity)
         dialog.setView(layout)
         dialog.setCancelable(false)
@@ -48,11 +49,11 @@ class LoadingDialog constructor(private val activity: Activity) {
     }
 
     fun setError(throwable: Throwable) {
-        (layout[R.id.lav_loading] as LottieAnimationView).run {
+        (layout[R.id.lav_downloading] as LottieAnimationView).run {
             setAnimation(R.raw.error)
             playAnimation()
         }
-        (layout[R.id.tv_loading] as TextView).run {
+        (layout[R.id.tv_downloading] as TextView).run {
             val message =
                 "서버 요청 중 오류가 발생했습니다!\n\n${throwable.message} #${throwable.stackTrace[0].lineNumber}"
             val ssb = SpannableStringBuilder(message)

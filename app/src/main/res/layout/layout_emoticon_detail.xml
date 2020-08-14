@@ -20,6 +20,7 @@
         tools:src="@color/colorGreen" />
 
     <Button
+        android:id="@+id/btn_download"
         android:layout_marginBottom="@dimen/margin_default"
         android:elevation="@dimen/margin_default"
         android:backgroundTint="@color/colorWhite"

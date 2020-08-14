@@ -11,7 +11,7 @@
     tools:ignore="MissingConstraints,RtlSymmetry" >
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lav_search"
+        android:id="@+id/lav_loading"
         android:layout_width="75dp"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_rawRes="@raw/loading"
+        app:lottie_rawRes="@raw/load"
         app:lottie_renderMode="hardware" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lav_search"
+        app:layout_constraintStart_toEndOf="@+id/lav_loading"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

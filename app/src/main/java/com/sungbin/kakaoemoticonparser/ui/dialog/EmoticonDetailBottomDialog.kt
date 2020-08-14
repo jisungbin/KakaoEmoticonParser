@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -19,13 +20,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.module.GlideApp
+import com.sungbin.kakaoemoticonparser.utils.EmoticonUtils
 import com.sungbin.kakaoemoticonparser.utils.ParseUtils
+import com.sungbin.sungbintool.ToastUtils
 import com.sungbin.sungbintool.Utils
 import com.sungbin.sungbintool.extensions.get
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 
 class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: EmoticonData) :
     BottomSheetDialogFragment() {
+
+    private val downloadDialog by lazy {
+        DownloadingDialog(activity)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -45,6 +57,28 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
             .with(activity)
             .load("https://item.kakaocdn.net/dw/$code.gift.jpg")
             .into(layout[R.id.iv_thumbnail] as ImageView)
+
+        (layout[R.id.btn_download] as Button).setOnClickListener {
+            downloadDialog.show()
+
+            CoroutineScope(Dispatchers.Default).launch {
+                val items = async {
+                    EmoticonUtils.getEmoticonList(code)
+                }.await() ?: arrayListOf()
+
+                async {
+                    for ((index, url) in items.withIndex())  {
+                        EmoticonUtils.download(item, url, index)
+                    }
+                }.await()
+
+                downloadDialog.close()
+
+                runOnUiThread {
+                    ToastUtils.show(activity, "다운로드 완료!", ToastUtils.SHORT, ToastUtils.SUCCESS)
+                }
+            }
+        }
 
         return layout
     }

@@ -6,4 +6,5 @@
     <string name="download">다운로드</string>
     <string name="search_first">검색을 진행해 주세요</string>
     <string name="search_empty">검색 결과가 없어요.\n다른 키워드로 검색해 보세요 :)</string>
+    <string name="downloading">다운로드중…</string>
 </resources>
