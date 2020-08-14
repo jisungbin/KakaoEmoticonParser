@@ -22,11 +22,15 @@
 
 # 다운로드
 그렇다면 다운로드는 어떻게?<br/>
-[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.0.2%20-%20alpha(13)-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
+[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.0.2%20-%20alpha(13)-debug.apk)를 클릭하면 자동 다운로드가 진행됩니다!
 
 ### 만약 다운로드가 `bin` 파일로 될 때?
-이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.2)에서 직접 `apk` 파일을 다운받아 보세요!<br/>
+이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.0.3)에서 직접 `apk` 파일을 다운받아 보세요!<br/>
 또는 `bin` 확장자를 `apk` 확장자로 바꿔보세요.
+
+### 다운로드 주의사항!
+1. 기본 앱을 제거 후 새로 다운받아서 설치해 주세요.
+2. 구글 프로텍터 관련 경고가 뜨면 사용 안함을 선택해 주세요!
 
 # 핵심 업데이트 로그
 > 자세한 업데이트 내역은 [릴리즈](https://github.com/sungbin5304/KakaoEmoticonParser/releases)를 참고해 주세요!
@@ -39,6 +43,9 @@
 
 ### 1.0.2
 앱 최적화
+
+### 1.0.3
+이모티콘 표시 부분 업데이트
 
 ----
 
