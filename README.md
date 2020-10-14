@@ -1,3 +1,11 @@
+# DEPRECATED!
+> 이모티콘 서버 주소 변경으로 인해 작동 X
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <h1 align=center>카카오톡 이모티콘 추출기</h1>
 
 ![logo](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/%ED%8C%8C%EB%8C%95%EC%9D%B4.png)
