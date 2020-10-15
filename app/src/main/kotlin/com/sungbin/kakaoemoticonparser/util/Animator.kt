@@ -1,4 +1,4 @@
-package com.sungbin.kakaoemoticonparser.utils
+package com.sungbin.kakaoemoticonparser.util
 
 import android.animation.AnimatorInflater
 import android.content.Context

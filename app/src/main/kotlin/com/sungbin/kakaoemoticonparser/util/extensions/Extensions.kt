@@ -1,4 +1,4 @@
-package com.sungbin.kakaoemoticonparser.utils.extensions
+package com.sungbin.kakaoemoticonparser.util.extensions
 
 
 /**

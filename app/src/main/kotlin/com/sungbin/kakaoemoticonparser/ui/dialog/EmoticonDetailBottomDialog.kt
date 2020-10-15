@@ -21,8 +21,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.module.GlideApp
-import com.sungbin.kakaoemoticonparser.utils.EmoticonUtils
-import com.sungbin.kakaoemoticonparser.utils.ParseUtils
+import com.sungbin.kakaoemoticonparser.util.EmoticonUtil
+import com.sungbin.kakaoemoticonparser.util.ParseUtil
 import com.sungbin.sungbintool.ToastUtils
 import com.sungbin.sungbintool.Utils
 import com.sungbin.sungbintool.extensions.get
@@ -48,7 +48,7 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
     ): View? {
         val layout = inflater.inflate(R.layout.layout_emoticon_detail, container)
         val address = "https://e.kakao.com/t/${item.originTitle}"
-        Utils.setUserAgent(ParseUtils.MOBILE_USER_AGENT)
+        Utils.setUserAgent(ParseUtil.MOBILE_USER_AGENT)
         val content = Utils.getHtml(address)!!
         val code =
             content.split("data-item-code=\"")[2].split("\"")[0].trim()
@@ -70,12 +70,12 @@ class EmoticonDetailBottomDialog constructor(val activity: Activity, val item: E
 
             CoroutineScope(Dispatchers.Default).launch {
                 val items = async {
-                    EmoticonUtils.getEmoticonList(code)
+                    EmoticonUtil.getEmoticonList(code)
                 }.await() ?: arrayListOf()
 
                 async {
                     for ((index, url) in items.withIndex())  {
-                        EmoticonUtils.download(activity, item, url, index)
+                        EmoticonUtil.download(activity, item, url, index)
                     }
                 }.await()
 

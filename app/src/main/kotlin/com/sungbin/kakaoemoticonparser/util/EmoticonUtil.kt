@@ -1,4 +1,4 @@
-package com.sungbin.kakaoemoticonparser.utils
+package com.sungbin.kakaoemoticonparser.util
 
 import android.content.Context
 import android.os.AsyncTask
@@ -10,7 +10,7 @@ import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-object EmoticonUtils {
+object EmoticonUtil {
 
     fun getEmoticonList(id: Long): ArrayList<String>? {
         val list = ArrayList<String>()

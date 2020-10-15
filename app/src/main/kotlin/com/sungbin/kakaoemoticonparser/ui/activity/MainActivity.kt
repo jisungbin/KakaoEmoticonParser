@@ -11,7 +11,7 @@ import com.sungbin.kakaoemoticonparser.`interface`.EmoticonInterface
 import com.sungbin.kakaoemoticonparser.adapter.EmoticonListAdapter
 import com.sungbin.kakaoemoticonparser.ui.dialog.EmoticonDetailBottomDialog
 import com.sungbin.kakaoemoticonparser.ui.dialog.LoadingDialog
-import com.sungbin.kakaoemoticonparser.utils.ParseUtils
+import com.sungbin.kakaoemoticonparser.util.ParseUtil
 import com.sungbin.sungbintool.LogUtils
 import com.sungbin.sungbintool.PermissionUtils
 import com.sungbin.sungbintool.extensions.hide
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
-                        ParseUtils.getSearchedData(response.string())?.let {
+                        ParseUtil.getSearchedData(response.string())?.let {
                             rv_emoticon.show()
                             cl_empty.hide(true)
                             cl_search.hide(true)

@@ -4,6 +4,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("name.remal.check-dependency-updates") version "1.1.0"
 }
 
 android {
@@ -24,7 +25,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -35,7 +39,7 @@ android {
     }
 
     packagingOptions {
-        exclude ("META-INF/library_release.kotlin_module")
+        exclude("META-INF/library_release.kotlin_module")
     }
 
     compileOptions {
@@ -49,31 +53,33 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    fun def(vararg dependencies: String) {
+        for (dependency in dependencies) implementation(dependency)
+    }
 
-    implementation(Dependencies.Essential.Anko)
-    implementation(Dependencies.Essential.CoreKtx)
-    implementation(Dependencies.Essential.Kotlin)
+    def(
+        Dependencies.Essential.Anko,
+        Dependencies.Essential.CoreKtx,
+        Dependencies.Essential.Kotlin,
 
-    implementation(Dependencies.Network.Jsoup)
-    implementation(Dependencies.Network.OkHttp)
-    implementation(Dependencies.Network.Retrofit)
-    implementation(Dependencies.Network.RxRetrofit)
+        Dependencies.Network.Jsoup,
+        Dependencies.Network.OkHttp,
+        Dependencies.Network.Retrofit,
 
-    implementation(Dependencies.Rx.Java)
-    implementation(Dependencies.Rx.Kotlin)
-    implementation(Dependencies.Rx.Android)
+        Dependencies.Rx.RxRetrofit,
+        Dependencies.Rx.Kotlin,
+        Dependencies.Rx.Android,
 
-    implementation(Dependencies.Di.Hilt)
+        Dependencies.Di.Hilt,
 
-    implementation(Dependencies.Ui.Glide)
-    implementation(Dependencies.Ui.CardView)
-    implementation(Dependencies.Ui.ConstraintLayout)
+        Dependencies.Ui.Glide,
+        Dependencies.Ui.CardView,
+        Dependencies.Ui.Lottie,
 
-    implementation(Dependencies.Utils.AndroidUtils)
-    implementation(Dependencies.Utils.CrashReporter)
-
-    implementation(Dependencies.Animator.Lottie)
+        Dependencies.Ui.ConstraintLayout,
+        Dependencies.Util.AndroidUtil,
+        Dependencies.Util.CrashReporter
+    )
 
     kapt(Dependencies.Di.HiltCompiler)
     kapt(Dependencies.Ui.GlideCompiler)
