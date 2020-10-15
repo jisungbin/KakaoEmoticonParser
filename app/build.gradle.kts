@@ -75,8 +75,8 @@ dependencies {
         Dependencies.Ui.Glide,
         Dependencies.Ui.CardView,
         Dependencies.Ui.Lottie,
-
         Dependencies.Ui.ConstraintLayout,
+
         Dependencies.Util.AndroidUtil,
         Dependencies.Util.CrashReporter
     )

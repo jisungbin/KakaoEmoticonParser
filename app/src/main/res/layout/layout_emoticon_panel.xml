@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="116dp"
         android:orientation="vertical"
-        tools:ignore="ContentDescription" >
+        tools:ignore="ContentDescription">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_panel"

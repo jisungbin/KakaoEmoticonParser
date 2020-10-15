@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import com.sungbin.kakaoemoticonparser.R
 
 object Animator {
+
     fun fadeIn(view: View, context: Context, doAfterEnd: () -> Unit = {}) {
         view.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in).apply {
             setAnimationListener(object : Animation.AnimationListener {

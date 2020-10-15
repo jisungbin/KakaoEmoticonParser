@@ -18,7 +18,7 @@ import com.sungbin.sungbintool.extensions.get
 import com.sungbin.sungbintool.extensions.plusAssign
 
 
-class LoadingDialog constructor(private val activity: Activity) {
+class LoadingDialog(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog
     private lateinit var layout: View
@@ -43,7 +43,7 @@ class LoadingDialog constructor(private val activity: Activity) {
     }
 
     fun updateTitle(title: String) {
-        layout[R .id.tv_loading] as TextView += title
+        layout[R.id.tv_loading] as TextView += title
         layout.invalidate()
     }
 

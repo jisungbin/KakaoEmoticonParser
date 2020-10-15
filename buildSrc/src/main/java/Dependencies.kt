@@ -32,7 +32,7 @@ object Versions {
     }
 
     object Util {
-        const val AndroidUtil = "3.1.8"
+        const val AndroidUtil = "4.0.3"
         const val CrashReporter = "1.1.0"
     }
 
@@ -50,7 +50,6 @@ object Versions {
 }
 
 object Dependencies {
-
     object Network {
         const val Jsoup = "org.jsoup:jsoup:${Versions.Network.Jsoup}"
         const val Retrofit = "com.squareup.okhttp3:okhttp:${Versions.Network.OkHttp}"

@@ -3,11 +3,15 @@ package com.sungbin.kakaoemoticonparser.util
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.util.extensions.parse
 import org.json.JSONObject
+import org.jsoup.Jsoup
 
 object ParseUtil {
 
     const val MOBILE_USER_AGENT =
         "Mozilla/5.0 (Linux; Android 10; SM-G977N Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/84.0.4147.125 Mobile Safari/537.36;KAKAOTALK 2108970"
+
+    fun getHtml(address: String) =
+        Jsoup.connect(address).userAgent(MOBILE_USER_AGENT).get().toString()
 
     fun getSearchedData(html: String): ArrayList<EmoticonData>? {
         val data = ArrayList<EmoticonData>()

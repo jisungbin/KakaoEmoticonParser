@@ -17,10 +17,7 @@ class SearchOptionBottomDialog : BottomSheetDialogFragment() {
         fun onClosed()
     }
 
-    private var  listener: OnSearchOptionDialogListener? = null
-    fun setOnDatabaseRemovedListener(listenerOn: OnSearchOptionDialogListener?) {
-        this.listener = listenerOn
-    }
+    private var listener: OnSearchOptionDialogListener? = null
 
     fun setSearchOptionDialogListener(listener: () -> Unit) {
         this.listener = object : OnSearchOptionDialogListener {
@@ -42,7 +39,7 @@ class SearchOptionBottomDialog : BottomSheetDialogFragment() {
         etEndDate = layout[R.id.et_end_date] as EditText*/
 
         defaultSharedPreferences.run {
-            //todo
+            // todo
         }
 
         return layout
@@ -52,17 +49,20 @@ class SearchOptionBottomDialog : BottomSheetDialogFragment() {
         super.onDismiss(dialog)
 
         defaultSharedPreferences.edit {
-            //todo
+            // todo
         }
 
-        if(listener != null) listener!!.onClosed()
+        listener?.onClosed()
     }
 
     companion object {
-        private val instance by lazy {
-            SearchOptionBottomDialog()
-        }
+        private lateinit var searchOptionBottomDialog: SearchOptionBottomDialog
 
-        fun instance() = instance
+        fun instance(): SearchOptionBottomDialog {
+            if (!::searchOptionBottomDialog.isInitialized) {
+                searchOptionBottomDialog = SearchOptionBottomDialog()
+            }
+            return searchOptionBottomDialog
+        }
     }
 }
