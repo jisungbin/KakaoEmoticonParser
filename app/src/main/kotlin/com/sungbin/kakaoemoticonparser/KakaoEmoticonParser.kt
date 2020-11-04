@@ -20,7 +20,7 @@ class KakaoEmoticonParser : Application() {
         super.onCreate()
         context = applicationContext
 
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build() // todo: 이게 bad-way 였다니...
         StrictMode.setThreadPolicy(policy)
     }
 }
