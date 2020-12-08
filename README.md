@@ -22,7 +22,7 @@
 
 # 다운로드
 그렇다면 다운로드는 어떻게?<br/>
-[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/v1.1.0(15)-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
+[이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/download/1.1.1/v1.1.1.15.-release.apk)를 클릭하면 자동 다운로드가 진행됩니다!
 
 ### 만약 다운로드가 `bin` 파일로 될 때?
 이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/1.1.1)에서 직접 `apk` 파일을 다운받아 보세요!<br/>
