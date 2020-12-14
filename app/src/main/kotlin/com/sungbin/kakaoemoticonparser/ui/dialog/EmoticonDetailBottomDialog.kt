@@ -4,47 +4,39 @@ package com.sungbin.kakaoemoticonparser.ui.dialog
  * Created by SungBin on 2020-08-11.
  */
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.ScrollView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
+import com.sungbin.androidutils.util.ToastLength
+import com.sungbin.androidutils.util.ToastType
+import com.sungbin.androidutils.util.ToastUtil
+import com.sungbin.androidutils.util.Util
 import com.sungbin.kakaoemoticonparser.R
+import com.sungbin.kakaoemoticonparser.databinding.LayoutEmoticonDetailBinding
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 import com.sungbin.kakaoemoticonparser.module.GlideApp
 import com.sungbin.kakaoemoticonparser.util.EmoticonUtil
 import com.sungbin.kakaoemoticonparser.util.ParseUtil
-import com.sungbin.sungbintool.extensions.get
-import com.sungbin.sungbintool.util.ToastLength
-import com.sungbin.sungbintool.util.ToastType
-import com.sungbin.sungbintool.util.ToastUtil
 import kotlinx.coroutines.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
 
-class EmoticonDetailBottomDialog(val activity: Activity, val item: EmoticonData) :
-    BottomSheetDialogFragment() {
+class EmoticonDetailBottomDialog(private val activity: Activity, private val item: EmoticonData) :
+    SuperBottomSheetFragment() {
 
-    private val downloadDialog by lazy {
-        DownloadingDialog(activity)
-    }
+    private val downloadDialog by lazy { DownloadingDialog(activity) }
+    private val layout by lazy { LayoutEmoticonDetailBinding.inflate(layoutInflater) }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val layout = inflater.inflate(R.layout.layout_emoticon_detail, container)
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         val address = "https://e.kakao.com/t/${item.originTitle}"
         val content = ParseUtil.getHtml(address)
         val code = EmoticonUtil.getEmotionCode(content)
@@ -52,23 +44,23 @@ class EmoticonDetailBottomDialog(val activity: Activity, val item: EmoticonData)
         GlideApp
             .with(activity)
             .load("https://item.kakaocdn.net/dw/$code.gift.jpg")
-            .into(layout[R.id.iv_thumbnail] as ImageView)
+            .into(layout.ivThumbnail)
 
-        (layout[R.id.sv_container] as ScrollView).let {
+        layout.svContainer.let {
             it.post {
                 it.fullScroll(ScrollView.FOCUS_DOWN)
             }
         }
 
-        (layout[R.id.btn_download] as Button).setOnClickListener {
+        layout.btnDownload.setOnClickListener {
             downloadDialog.show()
 
             CoroutineScope(Dispatchers.Default).launch {
-                val items = async {
-                    EmoticonUtil.getEmoticonList(code)
-                }
-
                 withContext(Dispatchers.IO) {
+                    val items = async {
+                        EmoticonUtil.getEmoticonList(code)
+                    }
+
                     for ((index, url) in (items.await() ?: arrayListOf()).withIndex()) {
                         EmoticonUtil.download(activity, item, url, index)
                     }
@@ -87,21 +79,9 @@ class EmoticonDetailBottomDialog(val activity: Activity, val item: EmoticonData)
             }
         }
 
-        return layout
+        return layout.root
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
-        bottomSheetDialog.setOnShowListener {
-            val bottomSheet =
-                (it as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-            BottomSheetBehavior.from(bottomSheet).apply {
-                state = BottomSheetBehavior.STATE_EXPANDED
-                skipCollapsed = true
-                isHideable = true
-            }
-        }
-        return bottomSheetDialog
-    }
-
+    override fun getCornerRadius() = Util.dp2px(activity, 16f)
+    override fun isSheetAlwaysExpanded() = true
 }

@@ -1,6 +1,5 @@
 package com.sungbin.kakaoemoticonparser.ui.dialog
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
@@ -9,32 +8,26 @@ import android.text.SpannableStringBuilder
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.LottieAnimationView
 import com.sungbin.kakaoemoticonparser.R
-import com.sungbin.sungbintool.extensions.get
-import com.sungbin.sungbintool.extensions.plusAssign
+import com.sungbin.kakaoemoticonparser.databinding.LayoutDialogLoadingBinding
 
 
 class LoadingDialog(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog
-    private lateinit var layout: View
+    private val layout by lazy { LayoutDialogLoadingBinding.inflate(LayoutInflater.from(activity)) }
 
-    @SuppressLint("InflateParams")
     fun show() {
-        layout = LayoutInflater.from(activity).inflate(R.layout.layout_dialog_loading, null)
         val dialog = AlertDialog.Builder(activity)
-        dialog.setView(layout)
+        dialog.setView(layout.root)
         dialog.setCancelable(false)
 
         alert = dialog.create()
         alert.window?.setBackgroundDrawable(
             ColorDrawable(
                 ContextCompat.getColor(
-                    layout.context,
+                    activity,
                     android.R.color.transparent
                 )
             )
@@ -43,16 +36,16 @@ class LoadingDialog(private val activity: Activity) {
     }
 
     fun updateTitle(title: String) {
-        layout[R.id.tv_loading] as TextView += title
-        layout.invalidate()
+        layout.tvLoading.text = title
+        layout.root.invalidate()
     }
 
     fun setError(throwable: Throwable) {
-        (layout[R.id.lav_loading] as LottieAnimationView).run {
+        layout.lavLoading.run {
             setAnimation(R.raw.error)
             playAnimation()
         }
-        (layout[R.id.tv_loading] as TextView).run {
+        layout.tvLoading.run {
             val message =
                 "서버 요청 중 오류가 발생했습니다!\n\n${throwable.message} #${throwable.stackTrace[0].lineNumber}"
             val ssb = SpannableStringBuilder(message)
@@ -65,7 +58,7 @@ class LoadingDialog(private val activity: Activity) {
             text = ssb
             movementMethod = ScrollingMovementMethod()
         }
-        layout.invalidate()
+        layout.root.invalidate()
     }
 
     fun close() {

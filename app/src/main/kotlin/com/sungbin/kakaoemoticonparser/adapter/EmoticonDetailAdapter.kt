@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.sungbin.androidutils.extensions.get
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.module.GlideApp
-import com.sungbin.sungbintool.extensions.get
 
-class EmoticonDetailAdapter constructor(private val items: ArrayList<String>) :
+class EmoticonDetailAdapter(private val items: ArrayList<String>) :
     RecyclerView.Adapter<EmoticonDetailAdapter.ViewHolder>() {
 
-    inner class ViewHolder(viewholder: View) : RecyclerView.ViewHolder(viewholder) {
-        val imageView = viewholder[R.id.iv_image] as ImageView
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imageView = view[R.id.iv_image, ImageView::class.java]
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {

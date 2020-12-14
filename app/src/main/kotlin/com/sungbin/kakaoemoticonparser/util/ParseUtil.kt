@@ -14,14 +14,14 @@ object ParseUtil {
         Jsoup.connect(address).userAgent(MOBILE_USER_AGENT).get().toString()
 
     fun getSearchedData(html: String): ArrayList<EmoticonData>? {
-        val data = ArrayList<EmoticonData>()
         return try {
+            val data = ArrayList<EmoticonData>()
             val json = html.replace("&quot;", "\"")
             val jsonContent = json.parse("SearchPage", "SearchPage-0", 1, false)
                 .split("\" data-react-props=\"")[1]
                 .split("\" data-react-cache-id=\"")[0]
-
             val jsonObject = JSONObject(jsonContent).getJSONArray("items")
+
             for (i in 0 until jsonObject.length()) {
                 val content = jsonObject.getJSONObject(i)
                 val artist = content.getString("artist")
@@ -31,6 +31,7 @@ object ParseUtil {
                     haveMotion = getBoolean("motion")
                     haveSound = getBoolean("sound")
                 }
+
                 val isBig = content.getBoolean("isBigEmo")
                 val title = content.getString("title")
                 val originTitle = content.getString("titleUrl")
@@ -46,13 +47,16 @@ object ParseUtil {
                     haveSound,
                     originTitle
                 )
+
                 data.add(item)
             }
+
             if (data.isEmpty()) null
             else data
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (exception: Exception) {
+            exception.printStackTrace()
             null
         }
     }
+
 }

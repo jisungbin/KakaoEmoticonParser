@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/margin_default"
     android:background="@drawable/bg_round_layout_all"
     android:backgroundTint="@color/colorWhite"
-    tools:ignore="MissingConstraints,RtlSymmetry">
+    android:padding="@dimen/margin_default">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lav_downloading"
@@ -17,23 +16,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_rawRes="@raw/download"
-        app:lottie_renderMode="hardware" />
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/download" />
 
     <TextView
-        android:gravity="center"
-        android:paddingStart="@dimen/margin_twice"
         android:id="@+id/tv_downloading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingStart="@dimen/margin_twice"
         android:text="@string/dialog_downloading"
         android:textColor="@color/colorBlack"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lav_downloading"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

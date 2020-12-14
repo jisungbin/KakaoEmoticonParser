@@ -26,7 +26,7 @@ object EmoticonModule {
         .writeTimeout(30, TimeUnit.SECONDS)
 
     @Singleton
-    @Named("SEARCH")
+    @Named("search")
     @Provides
     fun provideSearchInstance() = Retrofit.Builder()
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

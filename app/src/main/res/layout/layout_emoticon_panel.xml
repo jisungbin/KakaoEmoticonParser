@@ -14,8 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="116dp"
-        android:orientation="vertical"
-        tools:ignore="ContentDescription">
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_panel"
@@ -34,25 +33,25 @@
                 tools:context=".ui.activity.main.MainActivity"
                 tools:ignore="MissingConstraints">
 
-                <com.sungbin.sungbintool.ui.TagableRoundImageView
+                <com.sungbin.androidutils.ui.TagableRoundImageView
                     android:id="@+id/triv_icon"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     app:imageUrl="@{item.thumbnailUrl}"
-                    app:triv_imageRadius="@dimen/margin_twice_half"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:triv_imageRadius="@dimen/margin_twice_half"
                     tools:src="@color/colorPrimary" />
 
                 <TextView
-                    android:paddingStart="@dimen/margin_half"
-                    android:paddingEnd="@dimen/margin_half"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
                     android:id="@+id/tv_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
                     android:gravity="center"
+                    android:paddingStart="@dimen/margin_half"
+                    android:paddingEnd="@dimen/margin_half"
+                    android:singleLine="true"
                     android:text="@{item.title}"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
@@ -62,35 +61,37 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/app_name" />
 
-
                 <ImageView
                     android:id="@+id/iv_gif"
-                    android:tint="@{item.haveMotion ? @color/colorWhite : @color/colorLightGray}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/image_description_image_gif"
                     android:src="@drawable/ic_baseline_gif_24"
                     app:layout_constraintBottom_toBottomOf="@+id/triv_icon"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/colorLightGray" />
 
                 <ImageView
                     android:id="@+id/iv_big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_default"
+                    android:contentDescription="@string/image_description_image_big"
                     android:src="@drawable/ic_baseline_zoom_out_map_24"
-                    android:tint="@{item.big ? @color/colorWhite : @color/colorLightGray}"
                     app:layout_constraintBottom_toBottomOf="@+id/triv_icon"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_gif" />
+                    app:layout_constraintEnd_toStartOf="@+id/iv_gif"
+                    app:tint="@color/colorLightGray" />
 
                 <ImageView
                     android:id="@+id/iv_sound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@{item.haveSound ? @color/colorWhite : @color/colorLightGray}"
                     android:layout_marginEnd="@dimen/margin_default"
+                    android:contentDescription="@string/image_description_image_have_sound"
                     android:src="@drawable/ic_baseline_music_note_24"
                     app:layout_constraintBottom_toBottomOf="@+id/triv_icon"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_big" />
+                    app:layout_constraintEnd_toStartOf="@+id/iv_big"
+                    app:tint="@color/colorLightGray" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

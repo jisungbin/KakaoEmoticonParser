@@ -2,9 +2,8 @@ plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
-    id("name.remal.check-dependency-updates") version "1.1.0"
+    id("name.remal.check-dependency-updates") version "1.1.6"
 }
 
 android {
@@ -20,6 +19,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     buildTypes {
@@ -56,6 +56,8 @@ dependencies {
     fun def(vararg dependencies: String) {
         for (dependency in dependencies) implementation(dependency)
     }
+
+    implementation("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
 
     def(
         Dependencies.Essential.Anko,

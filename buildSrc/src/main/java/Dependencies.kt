@@ -15,8 +15,8 @@ object Application {
 object Versions {
     object Essential {
         const val Anko = "0.10.8"
-        const val Kotlin = "1.4.10"
-        const val Gradle = "4.1.0"
+        const val Kotlin = "1.4.21"
+        const val Gradle = "4.1.1"
         const val CoreKtx = "1.3.2"
     }
 
@@ -27,12 +27,12 @@ object Versions {
     object Ui {
         const val Glide = "4.11.0"
         const val CardView = "1.0.0"
-        const val ConstraintLayout = "2.0.2"
-        const val Lottie = "3.4.4"
+        const val ConstraintLayout = "2.0.4"
+        const val Lottie = "3.5.0"
     }
 
     object Util {
-        const val AndroidUtil = "4.0.3"
+        const val AndroidUtil = "4.2.3"
         const val CrashReporter = "1.1.0"
     }
 

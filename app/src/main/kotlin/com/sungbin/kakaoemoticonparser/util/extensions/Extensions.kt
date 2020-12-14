@@ -10,10 +10,8 @@ fun String.parse(
     endValue: String = "</$startValue>",
     index: Int,
     inputAuto: Boolean = true
-) =
-    this.split(
-        if (inputAuto) {
-            if (startValue.contains("<")) startValue else "<$startValue>"
-        } else startValue
-    )[index].split(endValue)[0]
-
+) = this.split(
+    if (inputAuto) {
+        if (startValue.contains("<")) startValue else "<$startValue>"
+    } else startValue
+)[index].split(endValue)[0]

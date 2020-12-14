@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.sungbin.androidutils.extensions.setTint
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.databinding.LayoutEmoticonPanelBinding
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
@@ -14,7 +15,7 @@ import com.sungbin.kakaoemoticonparser.model.EmoticonData
  * Created by SungBin on 2020-07-20.
  */
 
-class EmoticonListAdapter constructor(
+class EmoticonListAdapter(
     private val items: List<EmoticonData>
 ) : RecyclerView.Adapter<EmoticonListAdapter.ViewHolder>() {
 
@@ -31,16 +32,20 @@ class EmoticonListAdapter constructor(
         }
     }
 
-    class ViewHolder(private val itemBinding: LayoutEmoticonPanelBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
+    class ViewHolder(private val binding: LayoutEmoticonPanelBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindViewHolder(item: EmoticonData) {
-            itemBinding.item = item
-            itemBinding.tvName.isSelected = true
+            binding.item = item
+            binding.tvName.isSelected = true
+
+            if (item.isBig) binding.ivBig.setTint(R.color.colorWhite)
+            if (item.haveMotion) binding.ivGif.setTint(R.color.colorWhite)
+            if (item.haveSound) binding.ivSound.setTint(R.color.colorWhite)
         }
 
         fun setOnClick(listener: OnItemClickListener?, item: EmoticonData) {
-            itemBinding.cvPanel.setOnClickListener {
+            binding.cvPanel.setOnClickListener {
                 listener?.onClick(item)
             }
         }
