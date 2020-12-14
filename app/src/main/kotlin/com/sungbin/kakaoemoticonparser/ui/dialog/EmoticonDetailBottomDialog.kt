@@ -9,20 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
-import com.sungbin.androidutils.util.ToastLength
-import com.sungbin.androidutils.util.ToastType
-import com.sungbin.androidutils.util.ToastUtil
 import com.sungbin.androidutils.util.Util
-import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.databinding.LayoutEmoticonDetailBinding
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
-import com.sungbin.kakaoemoticonparser.module.GlideApp
-import com.sungbin.kakaoemoticonparser.util.EmoticonUtil
-import com.sungbin.kakaoemoticonparser.util.ParseUtil
-import kotlinx.coroutines.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 
 
 class EmoticonDetailBottomDialog(private val activity: Activity, private val item: EmoticonData) :
@@ -37,8 +27,10 @@ class EmoticonDetailBottomDialog(private val activity: Activity, private val ite
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        val address = "https://e.kakao.com/t/${item.originTitle}"
-        val content = ParseUtil.getHtml(address)
+
+        // todo: Flexbox Layout 써서 이쁘장하게 센터링해서 하기
+
+        /*val content = ParseUtil.getHtml(item.url)
         val code = EmoticonUtil.getEmotionCode(content)
 
         GlideApp
@@ -77,11 +69,11 @@ class EmoticonDetailBottomDialog(private val activity: Activity, private val ite
                     )
                 }
             }
-        }
+        }*/
 
         return layout.root
     }
 
-    override fun getCornerRadius() = Util.dp2px(activity, 16f)
+    override fun getCornerRadius() = Util.dp2px(activity, 32f)
     override fun isSheetAlwaysExpanded() = true
 }

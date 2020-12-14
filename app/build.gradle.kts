@@ -57,8 +57,6 @@ dependencies {
         for (dependency in dependencies) implementation(dependency)
     }
 
-    implementation("com.github.andrefrsousa:SuperBottomSheet:2.0.0")
-
     def(
         Dependencies.Essential.Anko,
         Dependencies.Essential.CoreKtx,
@@ -77,6 +75,7 @@ dependencies {
         Dependencies.Ui.Glide,
         Dependencies.Ui.CardView,
         Dependencies.Ui.Lottie,
+        Dependencies.Ui.SuperBottomSheet,
         Dependencies.Ui.ConstraintLayout,
 
         Dependencies.Util.AndroidUtil,

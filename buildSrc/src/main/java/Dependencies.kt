@@ -27,6 +27,7 @@ object Versions {
     object Ui {
         const val Glide = "4.11.0"
         const val CardView = "1.0.0"
+        const val SuperBottomSheet = "2.0.0"
         const val ConstraintLayout = "2.0.4"
         const val Lottie = "3.5.0"
     }
@@ -77,6 +78,8 @@ object Dependencies {
         const val Lottie = "com.airbnb.android:lottie:${Versions.Ui.Lottie}"
         const val Glide = "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
         const val CardView = "androidx.cardview:cardview:${Versions.Ui.CardView}"
+        const val SuperBottomSheet =
+            "com.github.andrefrsousa:SuperBottomSheet:${Versions.Ui.SuperBottomSheet}"
         const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
         const val ConstraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.Ui.ConstraintLayout}"
