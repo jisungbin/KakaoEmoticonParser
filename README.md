@@ -71,7 +71,8 @@
 1. Glide
 2. CardView
 3. ConstraintLayout
-4. Lottie
+4. SuperBottomSheet
+5. Lottie
 
 ### Utils
 1. AndroidUtils
