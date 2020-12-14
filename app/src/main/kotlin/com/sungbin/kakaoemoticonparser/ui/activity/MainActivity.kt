@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         } ?: showSearchNull()
                     }, { throwable ->
-                        throwable.printStackTrace()
                         loadingDialog.setError(throwable)
                     }, {
                         loadingDialog.close()

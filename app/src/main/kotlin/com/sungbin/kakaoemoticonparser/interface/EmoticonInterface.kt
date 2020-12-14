@@ -13,9 +13,9 @@ import retrofit2.http.Query
 
 interface EmoticonInterface {
 
-    @GET("search")
+    @GET("api/v1/search")
     fun getSearchData(
-        @Query("q") query: String
+        @Query("query") query: String
     ): Flowable<ResponseBody>
 
     // https://e.kakao.com/t/affection-will-blow-your-mind

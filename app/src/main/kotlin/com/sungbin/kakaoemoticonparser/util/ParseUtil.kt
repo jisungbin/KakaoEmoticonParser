@@ -1,7 +1,6 @@
 package com.sungbin.kakaoemoticonparser.util
 
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
-import com.sungbin.kakaoemoticonparser.util.extensions.parse
 import org.json.JSONObject
 import org.jsoup.Jsoup
 
@@ -13,25 +12,16 @@ object ParseUtil {
     fun getHtml(address: String) =
         Jsoup.connect(address).userAgent(MOBILE_USER_AGENT).get().toString()
 
-    fun getSearchedData(html: String): ArrayList<EmoticonData>? {
+    fun getSearchedData(json: String): ArrayList<EmoticonData>? {
         return try {
             val data = ArrayList<EmoticonData>()
-            val json = html.replace("&quot;", "\"")
-            val jsonContent = json.parse("SearchPage", "SearchPage-0", 1, false)
-                .split("\" data-react-props=\"")[1]
-                .split("\" data-react-cache-id=\"")[0]
-            val jsonObject = JSONObject(jsonContent).getJSONArray("items")
+            val jsonArray = JSONObject(json).getJSONObject("result").getJSONArray("content")
 
-            for (i in 0 until jsonObject.length()) {
-                val content = jsonObject.getJSONObject(i)
+            for (i in 0 until jsonArray.length()) {
+                val content = jsonArray.getJSONObject(i)
+
                 val artist = content.getString("artist")
-                val haveMotion: Boolean
-                val haveSound: Boolean
-                content.getJSONObject("icon").run {
-                    haveMotion = getBoolean("motion")
-                    haveSound = getBoolean("sound")
-                }
-
+                val haveSound = content.getBoolean("isSound")
                 val isBig = content.getBoolean("isBigEmo")
                 val title = content.getString("title")
                 val originTitle = content.getString("titleUrl")
@@ -43,7 +33,6 @@ object ParseUtil {
                     url,
                     thumbnailUrl,
                     isBig,
-                    haveMotion,
                     haveSound,
                     originTitle
                 )

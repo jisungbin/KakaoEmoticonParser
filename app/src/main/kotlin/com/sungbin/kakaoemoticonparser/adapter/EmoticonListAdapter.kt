@@ -40,7 +40,6 @@ class EmoticonListAdapter(
             binding.tvName.isSelected = true
 
             if (item.isBig) binding.ivBig.setTint(R.color.colorWhite)
-            if (item.haveMotion) binding.ivGif.setTint(R.color.colorWhite)
             if (item.haveSound) binding.ivSound.setTint(R.color.colorWhite)
         }
 

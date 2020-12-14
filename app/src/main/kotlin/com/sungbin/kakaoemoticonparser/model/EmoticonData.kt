@@ -15,7 +15,6 @@ data class EmoticonData(
     val url: String,
     var thumbnailUrl: String,
     val isBig: Boolean,
-    val haveMotion: Boolean,
     val haveSound: Boolean,
     var originTitle: String
 ) {

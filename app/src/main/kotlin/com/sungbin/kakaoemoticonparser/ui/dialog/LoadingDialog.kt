@@ -19,19 +19,23 @@ class LoadingDialog(private val activity: Activity) {
     private val layout by lazy { LayoutDialogLoadingBinding.inflate(LayoutInflater.from(activity)) }
 
     fun show() {
-        val dialog = AlertDialog.Builder(activity)
-        dialog.setView(layout.root)
-        dialog.setCancelable(false)
+        if (!::alert.isInitialized) {
+            val dialog = AlertDialog.Builder(activity)
+            dialog.setView(layout.root)
+            dialog.setCancelable(false)
 
-        alert = dialog.create()
-        alert.window?.setBackgroundDrawable(
-            ColorDrawable(
-                ContextCompat.getColor(
-                    activity,
-                    android.R.color.transparent
+            alert = dialog.create()
+            alert.window?.setBackgroundDrawable(
+                ColorDrawable(
+                    ContextCompat.getColor(
+                        activity,
+                        android.R.color.transparent
+                    )
                 )
             )
-        )
+        }
+
+        if (alert.isShowing) alert.cancel()
         alert.show()
     }
 
@@ -41,6 +45,7 @@ class LoadingDialog(private val activity: Activity) {
     }
 
     fun setError(throwable: Throwable) {
+        throwable.printStackTrace()
         layout.lavLoading.run {
             setAnimation(R.raw.error)
             playAnimation()
@@ -58,6 +63,7 @@ class LoadingDialog(private val activity: Activity) {
             text = ssb
             movementMethod = ScrollingMovementMethod()
         }
+        alert.setCancelable(true)
         layout.root.invalidate()
     }
 

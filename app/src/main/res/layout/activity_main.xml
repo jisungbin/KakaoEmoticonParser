@@ -45,7 +45,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/empty" />
 
@@ -66,7 +65,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lav_loading"
@@ -77,7 +77,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/search" />
 
@@ -98,14 +97,15 @@
         android:id="@+id/rv_emoticon"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_default"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
+        android:paddingTop="@dimen/margin_half"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_searchbar"
-        tools:listitem="@layout/layout_emoticon_panel" />
+        tools:listitem="@layout/layout_emoticon_panel"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
