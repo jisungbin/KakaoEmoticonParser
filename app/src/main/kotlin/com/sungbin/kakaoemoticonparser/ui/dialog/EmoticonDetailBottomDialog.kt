@@ -19,7 +19,7 @@ class EmoticonDetailBottomDialog(private val activity: Activity, private val ite
     SuperBottomSheetFragment() {
 
     private val downloadDialog by lazy { DownloadingDialog(activity) }
-    private val layout by lazy { LayoutEmoticonDetailBinding.inflate(layoutInflater) }
+    private val binding by lazy { LayoutEmoticonDetailBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +71,7 @@ class EmoticonDetailBottomDialog(private val activity: Activity, private val ite
             }
         }*/
 
-        return layout.root
+        return binding.root
     }
 
     override fun getCornerRadius() = Util.dp2px(activity, 32f)

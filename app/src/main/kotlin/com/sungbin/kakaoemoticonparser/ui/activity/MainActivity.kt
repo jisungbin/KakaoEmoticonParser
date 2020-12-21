@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var client: Retrofit
 
-    private val layout by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.root)
+        setContentView(binding.root)
 
         PermissionUtil.request(
             this,
@@ -48,12 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setSubtitle(R.string.copyright)
 
-        layout.etSearch.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        layout.etSearch.setOnEditorActionListener { _, actionId, _ ->
-            layout.etSearch.hideKeyboard()
+        binding.etSearch.imeOptions = EditorInfo.IME_ACTION_SEARCH
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            binding.etSearch.hideKeyboard()
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    emoticonSearch(layout.etSearch.text.toString())
+                    emoticonSearch(binding.etSearch.text.toString())
                     true
                 }
                 else -> false
@@ -70,10 +70,10 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
                         ParseUtil.getSearchedData(response.string())?.let {
-                            layout.rvEmoticon.show()
-                            layout.clEmpty.hide(true)
-                            layout.clSearch.hide(true)
-                            layout.rvEmoticon.adapter = EmoticonListAdapter(it).apply {
+                            binding.rvEmoticon.show()
+                            binding.clEmpty.hide(true)
+                            binding.clSearch.hide(true)
+                            binding.rvEmoticon.adapter = EmoticonListAdapter(it).apply {
                                 setOnItemClickListener { item ->
                                     EmoticonDetailBottomDialog(this@MainActivity, item).show(
                                         supportFragmentManager,
@@ -91,9 +91,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSearchNull() {
-        layout.clEmpty.show()
-        layout.clSearch.hide(true)
-        layout.rvEmoticon.hide(true)
+        binding.clEmpty.show()
+        binding.clSearch.hide(true)
+        binding.rvEmoticon.hide(true)
         Logger.w("null value")
     }
 
