@@ -1,7 +1,5 @@
 <h1 align=center>카카오톡 이모티콘 추출기</h1>
 
-> 현재 이모티콘 페이지 내부 구조 변경으로 인해, 작동이 되지 않습니다.
-
 ![logo](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/%ED%8C%8C%EB%8C%95%EC%9D%B4.jpg)
 
 > 이 어플리케이션은 이미 구매한 이모티콘을 다른 SNS에서 사용할 목적으로 만들어진 어플리케이션 입니다.<br/>
