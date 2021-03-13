@@ -14,7 +14,6 @@ object Application {
 
 object Versions {
     object Essential {
-        const val Anko = "0.10.8"
         const val Kotlin = "1.4.31"
         const val Gradle = "4.1.2"
         const val CoreKtx = "1.3.2"
@@ -29,12 +28,14 @@ object Versions {
         const val CardView = "1.0.0"
         const val SuperBottomSheet = "2.0.0"
         const val ConstraintLayout = "2.0.4"
+        const val Flexbox = "2.0.1"
         const val Lottie = "3.6.1"
     }
 
     object Util {
         const val AndroidUtil = "4.2.6"
         const val CrashReporter = "1.1.0"
+        const val JsonConverter = "2.4.0"
     }
 
     object Network {
@@ -51,43 +52,44 @@ object Versions {
 }
 
 object Dependencies {
-    object Network {
-        const val Jsoup = "org.jsoup:jsoup:${Versions.Network.Jsoup}"
-        const val Retrofit = "com.squareup.okhttp3:okhttp:${Versions.Network.OkHttp}"
-        const val OkHttp = "com.squareup.retrofit2:retrofit:${Versions.Network.Retrofit}"
-    }
+    val network = listOf(
+        "com.squareup.okhttp3:okhttp:${Versions.Network.OkHttp}",
+        "com.squareup.okhttp3:logging-interceptor:${Versions.Network.OkHttp}",
+        "com.squareup.retrofit2:retrofit:${Versions.Network.Retrofit}"
+    )
 
-    object Rx {
-        const val Kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.Rx.RxKotlin}"
-        const val Android = "io.reactivex.rxjava3:rxandroid:${Versions.Rx.RxAndroid}"
-        const val RxRetrofit = "com.squareup.retrofit2:adapter-rxjava3:${Versions.Rx.RxRetrofit}"
-    }
+    val rx = listOf(
+        "io.reactivex.rxjava3:rxkotlin:${Versions.Rx.RxKotlin}",
+        "io.reactivex.rxjava3:rxandroid:${Versions.Rx.RxAndroid}",
+        "com.squareup.retrofit2:adapter-rxjava3:${Versions.Rx.RxRetrofit}"
+    )
 
-    object Essential {
-        const val Anko = "org.jetbrains.anko:anko:${Versions.Essential.Anko}"
-        const val CoreKtx = "androidx.core:core-ktx:${Versions.Essential.CoreKtx}"
-        const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Essential.Kotlin}"
-    }
+    val essential = listOf(
+        "androidx.core:core-ktx:${Versions.Essential.CoreKtx}",
+        "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Essential.Kotlin}"
+    )
 
-    object Di {
-        const val Hilt = "com.google.dagger:hilt-android:${Versions.Di.Hilt}"
-        const val HiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}"
-    }
+    val di = listOf(
+        "com.google.dagger:hilt-android:${Versions.Di.Hilt}"
+    )
 
-    object Ui {
-        const val Lottie = "com.airbnb.android:lottie:${Versions.Ui.Lottie}"
-        const val Glide = "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
-        const val CardView = "androidx.cardview:cardview:${Versions.Ui.CardView}"
-        const val SuperBottomSheet =
-            "com.github.andrefrsousa:SuperBottomSheet:${Versions.Ui.SuperBottomSheet}"
-        const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
-        const val ConstraintLayout =
-            "androidx.constraintlayout:constraintlayout:${Versions.Ui.ConstraintLayout}"
-    }
+    val ui = listOf(
+        "com.airbnb.android:lottie:${Versions.Ui.Lottie}",
+        "com.github.bumptech.glide:glide:${Versions.Ui.Glide}",
+        "androidx.cardview:cardview:${Versions.Ui.CardView}",
+        "com.github.andrefrsousa:SuperBottomSheet:${Versions.Ui.SuperBottomSheet}",
+        "androidx.constraintlayout:constraintlayout:${Versions.Ui.ConstraintLayout}",
+        "com.google.android:flexbox:${Versions.Ui.Flexbox}"
+    )
 
-    object Util {
-        const val AndroidUtil = "com.github.sungbin5304:AndroidUtils:${Versions.Util.AndroidUtil}"
-        const val CrashReporter =
-            "com.balsikandar.android:crashreporter:${Versions.Util.CrashReporter}"
-    }
+    val util = listOf(
+        "com.github.sungbin5304:AndroidUtils:${Versions.Util.AndroidUtil}",
+        "com.balsikandar.android:crashreporter:${Versions.Util.CrashReporter}",
+        "com.squareup.retrofit2:converter-gson:${Versions.Util.JsonConverter}"
+    )
+
+    val compiler = listOf(
+        "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}",
+        "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
+    )
 }

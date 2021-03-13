@@ -26,7 +26,7 @@ object DownloadUtil {
                 val tmpByte = ByteArray(len)
                 val `is` = conn.inputStream
                 val fos = FileOutputStream(savePath)
-                fos.buffered(1024 * 1024).use { it.write(tmpByte, 0, `is`.read(tmpByte)) }
+                fos.buffered(2048 * 2048).use { it.write(tmpByte, 0, `is`.read(tmpByte)) }
                 `is`.close()
                 conn.disconnect()
                 null

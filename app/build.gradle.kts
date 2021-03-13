@@ -24,9 +24,7 @@ android {
     }
 
     sourceSets {
-        getByName("androidTest").java.srcDirs("src/androidTest/kotlin")
         getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
     }
 
     packagingOptions {
@@ -43,36 +41,13 @@ android {
     }
 }
 
+// Ignored red-line. It's working well.
 dependencies {
-    fun def(vararg dependencies: String) {
-        for (dependency in dependencies) implementation(dependency)
-    }
-
-    def(
-        Dependencies.Essential.Anko,
-        Dependencies.Essential.CoreKtx,
-        Dependencies.Essential.Kotlin,
-
-        Dependencies.Network.Jsoup,
-        Dependencies.Network.OkHttp,
-        Dependencies.Network.Retrofit,
-
-        Dependencies.Rx.RxRetrofit,
-        Dependencies.Rx.Kotlin,
-        Dependencies.Rx.Android,
-
-        Dependencies.Di.Hilt,
-
-        Dependencies.Ui.Glide,
-        Dependencies.Ui.CardView,
-        Dependencies.Ui.Lottie,
-        Dependencies.Ui.SuperBottomSheet,
-        Dependencies.Ui.ConstraintLayout,
-
-        Dependencies.Util.AndroidUtil,
-        Dependencies.Util.CrashReporter
-    )
-
-    kapt(Dependencies.Di.HiltCompiler)
-    kapt(Dependencies.Ui.GlideCompiler)
+    Dependencies.essential.forEach(::implementation)
+    Dependencies.network.forEach(::implementation)
+    Dependencies.rx.forEach(::implementation)
+    Dependencies.di.forEach(::implementation)
+    Dependencies.ui.forEach(::implementation)
+    Dependencies.util.forEach(::implementation)
+    Dependencies.compiler.forEach(::kapt)
 }
