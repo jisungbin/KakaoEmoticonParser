@@ -68,25 +68,29 @@ class MainActivity : AppCompatActivity() {
                 getSearchData(query)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ response ->
-                        ParseUtil.getSearchedData(response.string())?.let {
-                            binding.rvEmoticon.show()
-                            binding.clEmpty.hide(true)
-                            binding.clSearch.hide(true)
-                            binding.rvEmoticon.adapter = EmoticonListAdapter(it).apply {
-                                setOnItemClickListener { item ->
-                                    EmoticonDetailBottomDialog(this@MainActivity, item).show(
-                                        supportFragmentManager,
-                                        ""
-                                    )
+                    .subscribe(
+                        { response ->
+                            ParseUtil.getSearchedData(response.string())?.let {
+                                binding.rvEmoticon.show()
+                                binding.clEmpty.hide(true)
+                                binding.clSearch.hide(true)
+                                binding.rvEmoticon.adapter = EmoticonListAdapter(it).apply {
+                                    setOnItemClickListener { item ->
+                                        EmoticonDetailBottomDialog(this@MainActivity, item).show(
+                                            supportFragmentManager,
+                                            ""
+                                        )
+                                    }
                                 }
-                            }
-                        } ?: showSearchNull()
-                    }, { throwable ->
-                        loadingDialog.setError(throwable)
-                    }, {
-                        loadingDialog.close()
-                    })
+                            } ?: showSearchNull()
+                        },
+                        { throwable ->
+                            loadingDialog.setError(throwable)
+                        },
+                        {
+                            loadingDialog.close()
+                        }
+                    )
             }
     }
 
@@ -96,5 +100,4 @@ class MainActivity : AppCompatActivity() {
         binding.rvEmoticon.hide(true)
         Logger.w("null value")
     }
-
 }

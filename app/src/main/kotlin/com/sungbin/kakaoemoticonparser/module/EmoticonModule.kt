@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 /**
  * Created by SungBin on 2020-08-13.
  */

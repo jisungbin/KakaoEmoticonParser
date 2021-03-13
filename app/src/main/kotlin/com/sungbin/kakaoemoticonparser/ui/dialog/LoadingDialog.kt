@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.databinding.LayoutDialogLoadingBinding
 
-
 class LoadingDialog(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog

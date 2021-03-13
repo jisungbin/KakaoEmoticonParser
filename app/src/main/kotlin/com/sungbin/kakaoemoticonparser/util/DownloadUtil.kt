@@ -40,7 +40,5 @@ object DownloadUtil {
             downloadDoneAction()
             return
         }
-
     }
-
 }

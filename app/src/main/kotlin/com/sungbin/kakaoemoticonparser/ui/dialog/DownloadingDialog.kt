@@ -1,6 +1,5 @@
 package com.sungbin.kakaoemoticonparser.ui.dialog
 
-
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
@@ -12,7 +11,6 @@ import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.databinding.LayoutDialogLoadingBinding
-
 
 class DownloadingDialog(private val activity: Activity) {
 

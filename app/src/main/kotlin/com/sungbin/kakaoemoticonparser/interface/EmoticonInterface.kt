@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 /**
  * Created by SungBin on 2020-08-10.
  */

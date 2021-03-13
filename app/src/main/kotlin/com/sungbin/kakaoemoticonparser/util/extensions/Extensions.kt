@@ -1,6 +1,5 @@
 package com.sungbin.kakaoemoticonparser.util.extensions
 
-
 /**
  * Created by SungBin on 2020-08-13.
  */

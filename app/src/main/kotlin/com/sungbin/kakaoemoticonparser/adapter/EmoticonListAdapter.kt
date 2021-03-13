@@ -10,7 +10,6 @@ import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.databinding.LayoutEmoticonPanelBinding
 import com.sungbin.kakaoemoticonparser.model.EmoticonData
 
-
 /**
  * Created by SungBin on 2020-07-20.
  */

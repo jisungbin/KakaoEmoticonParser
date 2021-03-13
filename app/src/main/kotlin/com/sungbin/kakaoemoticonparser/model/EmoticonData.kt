@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.sungbin.kakaoemoticonparser.module.GlideApp
 
-
 /**
  * Created by SungBin on 2020-08-13.
  */

@@ -3,33 +3,24 @@ plugins {
     id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
-    id("name.remal.check-dependency-updates") version "1.1.6"
+    id("name.remal.check-dependency-updates") version "1.2.2"
 }
 
 android {
     compileSdkVersion(Application.compileSdk)
+
     defaultConfig {
         minSdkVersion(Application.minSdk)
         targetSdkVersion(Application.targetSdk)
         versionCode = Application.versionCode
         versionName = Application.versionName
         multiDexEnabled = true
-        setProperty("archivesBaseName", "v$versionName($versionCode)")
+        setProperty("archivesBaseName", "v$versionName ($versionCode)")
     }
 
     buildFeatures {
         dataBinding = true
         viewBinding = true
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
 
     sourceSets {

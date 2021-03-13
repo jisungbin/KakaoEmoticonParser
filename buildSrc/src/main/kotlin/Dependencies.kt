@@ -4,9 +4,9 @@ object Application {
     const val minSdk = 23
     const val targetSdk = 30
     const val compileSdk = 30
-    const val versionCode = 15
+    const val versionCode = 16
     const val jvmTarget = "1.8"
-    const val versionName = "1.1.1"
+    const val versionName = "1.2.0"
 
     val targetCompat = JavaVersion.VERSION_1_8
     val sourceCompat = JavaVersion.VERSION_1_8
@@ -15,8 +15,8 @@ object Application {
 object Versions {
     object Essential {
         const val Anko = "0.10.8"
-        const val Kotlin = "1.4.21"
-        const val Gradle = "4.1.1"
+        const val Kotlin = "1.4.31"
+        const val Gradle = "4.1.2"
         const val CoreKtx = "1.3.2"
     }
 
@@ -25,21 +25,21 @@ object Versions {
     }
 
     object Ui {
-        const val Glide = "4.11.0"
+        const val Glide = "4.12.0"
         const val CardView = "1.0.0"
         const val SuperBottomSheet = "2.0.0"
         const val ConstraintLayout = "2.0.4"
-        const val Lottie = "3.5.0"
+        const val Lottie = "3.6.1"
     }
 
     object Util {
-        const val AndroidUtil = "4.2.3"
+        const val AndroidUtil = "4.2.6"
         const val CrashReporter = "1.1.0"
     }
 
     object Network {
         const val Jsoup = "1.13.1"
-        const val OkHttp = "4.9.0"
+        const val OkHttp = "4.9.1"
         const val Retrofit = "2.9.0"
     }
 
