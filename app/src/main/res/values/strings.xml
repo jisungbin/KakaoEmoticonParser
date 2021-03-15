@@ -1,7 +1,7 @@
 <resources>
     <!-- global string -->
     <string name="app_name">카카오톡 이모티콘 추출기</string>
-    <string name="copyright">Copyright ⓒ 2020 SungBin</string>
+    <string name="copyright">ⓒ 2021 지성빈</string>
 
     <string name="main_need_permission">이모티콘 다운로드 요청 시 내부메모리에 접근 권한이 필요합니다.</string>
     <string name="main_search_emoticon">이모티콘 검색</string>

@@ -19,8 +19,15 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
-        viewBinding = true
+        compose = true
+    }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.Compose.Version
     }
 
     sourceSets {
@@ -49,5 +56,7 @@ dependencies {
     Dependencies.di.forEach(::implementation)
     Dependencies.ui.forEach(::implementation)
     Dependencies.util.forEach(::implementation)
+    Dependencies.compose.forEach(::implementation)
+    Dependencies.room.forEach(::implementation)
     Dependencies.compiler.forEach(::kapt)
 }

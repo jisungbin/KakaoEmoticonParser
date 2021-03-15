@@ -25,11 +25,6 @@ object Versions {
 
     object Ui {
         const val Glide = "4.12.0"
-        const val CardView = "1.0.0"
-        const val SuperBottomSheet = "2.0.0"
-        const val ConstraintLayout = "2.0.4"
-        const val Flexbox = "2.0.1"
-        const val Lottie = "3.6.1"
     }
 
     object Util {
@@ -39,7 +34,6 @@ object Versions {
     }
 
     object Network {
-        const val Jsoup = "1.13.1"
         const val OkHttp = "4.9.1"
         const val Retrofit = "2.9.0"
     }
@@ -48,6 +42,18 @@ object Versions {
         const val RxKotlin = "3.0.1"
         const val RxAndroid = "3.0.0"
         const val RxRetrofit = "2.9.0"
+    }
+
+    object Jetpack {
+        const val Room = "2.3.0-beta03"
+    }
+
+    object Compose {
+        const val Version = "1.0.0-beta02"
+        const val Navigation = "1.0.0-alpha09"
+        const val ConstraintLayout = "1.0.0-alpha04"
+        const val Lottie = "1.0.0-alpha06"
+        const val Activity = "1.3.0-alpha04"
     }
 }
 
@@ -74,12 +80,7 @@ object Dependencies {
     )
 
     val ui = listOf(
-        "com.airbnb.android:lottie:${Versions.Ui.Lottie}",
-        "com.github.bumptech.glide:glide:${Versions.Ui.Glide}",
-        "androidx.cardview:cardview:${Versions.Ui.CardView}",
-        "com.github.andrefrsousa:SuperBottomSheet:${Versions.Ui.SuperBottomSheet}",
-        "androidx.constraintlayout:constraintlayout:${Versions.Ui.ConstraintLayout}",
-        "com.google.android:flexbox:${Versions.Ui.Flexbox}"
+        "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
     )
 
     val util = listOf(
@@ -88,8 +89,26 @@ object Dependencies {
         "com.squareup.retrofit2:converter-gson:${Versions.Util.JsonConverter}"
     )
 
+    var room = listOf(
+        "androidx.room:room-runtime:${Versions.Jetpack.Room}",
+        "androidx.room:room-ktx:${Versions.Jetpack.Room}"
+    )
+
+    var compose = listOf(
+        "androidx.navigation:navigation-compose:${Versions.Compose.Navigation}",
+        "androidx.activity:activity-compose:${Versions.Compose.Activity}",
+        "androidx.constraintlayout:constraintlayout-compose:${Versions.Compose.ConstraintLayout}",
+        "com.airbnb.android:lottie-compose:${Versions.Compose.Lottie}",
+        "androidx.compose.ui:ui:${Versions.Compose.Version}",
+        "androidx.compose.material:material:${Versions.Compose.Version}",
+        "androidx.compose.material:material-icons-extended:${Versions.Compose.Version}",
+        "androidx.compose.runtime:runtime-livedata:${Versions.Compose.Version}",
+        "androidx.compose.ui:ui-tooling:${Versions.Compose.Version}"
+    )
+
     val compiler = listOf(
         "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}",
-        "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
+        "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}",
+        "androidx.room:room-compiler:${Versions.Jetpack.Room}"
     )
 }
