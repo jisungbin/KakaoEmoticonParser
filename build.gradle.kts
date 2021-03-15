@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -15,6 +16,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://oss.jfrog.org/libs-snapshot") }
     }

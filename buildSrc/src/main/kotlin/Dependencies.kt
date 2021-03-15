@@ -15,7 +15,7 @@ object Application {
 object Versions {
     object Essential {
         const val Kotlin = "1.4.31"
-        const val Gradle = "4.1.2"
+        const val Gradle = "7.0.0-alpha09"
         const val CoreKtx = "1.3.2"
     }
 
