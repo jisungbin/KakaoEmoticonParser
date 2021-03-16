@@ -15,11 +15,14 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.ui.composable.RotateIcon
 import com.sungbin.kakaoemoticonparser.ui.home.HomeContent
@@ -33,11 +36,17 @@ class MainActivity : ComponentActivity() {
         setContent { MainContent() }
     }
 
+    @Preview
     @Composable
     private fun MainContent() {
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
 
         Column {
+            NavigationFragmentContent(
+                contentType = navigationState.value,
+                modifier = Modifier.weight(1f)
+            )
+            NavigationBarContent(contentType = navigationState)
         }
     }
 
@@ -61,21 +70,21 @@ class MainActivity : ComponentActivity() {
         modifier: Modifier = Modifier,
         contentType: MutableState<NavigationType>
     ) {
-        val animate = remember { mutableStateOf(false) }
+        var animate by remember { mutableStateOf(false) }
         BottomNavigation(modifier = modifier) {
             BottomNavigationItem(
                 icon = { Icon(imageVector = Icons.Outlined.Search, contentDescription = null) },
                 selected = contentType.value == NavigationType.SEARCH,
                 onClick = {
                     contentType.value = NavigationType.SEARCH
-                    animate.value = false
+                    animate = false
                 },
                 label = { Text(text = stringResource(id = R.string.navigation_search)) }
             )
             BottomNavigationItem(
                 icon = {
                     RotateIcon(
-                        state = animate.value,
+                        state = animate,
                         imageVector = Icons.Outlined.Favorite,
                         angle = 720f,
                         duration = 2000
@@ -84,7 +93,7 @@ class MainActivity : ComponentActivity() {
                 selected = contentType.value == NavigationType.FAVORITE,
                 onClick = {
                     contentType.value = NavigationType.FAVORITE
-                    animate.value = true
+                    animate = true
                 },
                 label = { Text(text = stringResource(id = R.string.navigation_favorite)) }
             )
@@ -93,7 +102,7 @@ class MainActivity : ComponentActivity() {
                 selected = contentType.value == NavigationType.SETTING,
                 onClick = {
                     contentType.value = NavigationType.SETTING
-                    animate.value = false
+                    animate = false
                 },
                 label = { Text(text = stringResource(id = R.string.navigation_setting)) }
             )

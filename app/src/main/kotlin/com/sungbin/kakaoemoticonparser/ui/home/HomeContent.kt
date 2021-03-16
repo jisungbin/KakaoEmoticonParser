@@ -54,7 +54,7 @@ fun HomeContent() {
 
 @Composable
 private fun BindHomeContent() {
-    var searchText = remember { mutableStateOf(TextFieldValue()) }
+    val searchText = remember { mutableStateOf(TextFieldValue()) }
     val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.search) }
     val animationState =
         rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)

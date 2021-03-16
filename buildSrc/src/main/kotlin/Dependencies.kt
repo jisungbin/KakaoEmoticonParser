@@ -52,7 +52,7 @@ object Versions {
         const val Version = "1.0.0-beta02"
         const val Navigation = "1.0.0-alpha09"
         const val ConstraintLayout = "1.0.0-alpha04"
-        const val Lottie = "1.0.0-alpha06"
+        const val Lottie = "1.0.0-alpha07-SNAPSHOT"
         const val Activity = "1.3.0-alpha04"
     }
 }
