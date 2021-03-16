@@ -24,7 +24,8 @@ object Versions {
     }
 
     object Ui {
-        const val Lottie = "1.0.0-alpha07-SNAPSHOT"
+        const val Lottie = "3.6.1"
+        const val LottieCompose = "1.0.0-alpha07-SNAPSHOT"
         const val Glide = "0.6.2"
     }
 
@@ -79,8 +80,9 @@ object Dependencies {
     )
 
     val ui = listOf(
+        "com.airbnb.android:lottie:${Versions.Ui.Lottie}",
         "com.google.accompanist:accompanist-glide:${Versions.Ui.Glide}",
-        "com.airbnb.android:lottie-compose:${Versions.Ui.Lottie}",
+        "com.airbnb.android:lottie-compose:${Versions.Ui.LottieCompose}",
     )
 
     val util = listOf(
