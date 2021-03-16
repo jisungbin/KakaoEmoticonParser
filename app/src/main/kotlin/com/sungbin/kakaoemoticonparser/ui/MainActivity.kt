@@ -34,7 +34,7 @@ import com.sungbin.kakaoemoticonparser.theme.blue700
 import com.sungbin.kakaoemoticonparser.theme.green700
 import com.sungbin.kakaoemoticonparser.theme.orange700
 import com.sungbin.kakaoemoticonparser.theme.purple700
-import com.sungbin.kakaoemoticonparser.ui.home.HomeContent
+import com.sungbin.kakaoemoticonparser.ui.search.SearchContent
 import com.sungbin.kakaoemoticonparser.ui.test.TestContent
 import com.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
 
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
             Crossfade(contentType) { type ->
                 Surface(color = MaterialTheme.colors.background) {
                     when (type) {
-                        NavigationType.SEARCH -> HomeContent()
+                        NavigationType.SEARCH -> SearchContent().Bind()
                         else -> TestContent()
                     }
                 }

@@ -20,11 +20,12 @@ object Versions {
     }
 
     object Di {
-        const val Hilt = "2.28-alpha"
+        const val Dagger = "2.28"
     }
 
     object Ui {
-        const val Glide = "4.12.0"
+        const val Lottie = "1.0.0-alpha07-SNAPSHOT"
+        const val Glide = "0.6.2"
     }
 
     object Util {
@@ -51,8 +52,6 @@ object Versions {
     object Compose {
         const val Version = "1.0.0-beta02"
         const val Navigation = "1.0.0-alpha09"
-        const val ConstraintLayout = "1.0.0-alpha04"
-        const val Lottie = "1.0.0-alpha07-SNAPSHOT"
         const val Activity = "1.3.0-alpha04"
     }
 }
@@ -76,11 +75,12 @@ object Dependencies {
     )
 
     val di = listOf(
-        "com.google.dagger:hilt-android:${Versions.Di.Hilt}"
+        "com.google.dagger:dagger:${Versions.Di.Dagger}"
     )
 
     val ui = listOf(
-        "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
+        "com.google.accompanist:accompanist-glide:${Versions.Ui.Glide}",
+        "com.airbnb.android:lottie-compose:${Versions.Ui.Lottie}",
     )
 
     val util = listOf(
@@ -97,18 +97,14 @@ object Dependencies {
     var compose = listOf(
         "androidx.navigation:navigation-compose:${Versions.Compose.Navigation}",
         "androidx.activity:activity-compose:${Versions.Compose.Activity}",
-        "androidx.constraintlayout:constraintlayout-compose:${Versions.Compose.ConstraintLayout}",
-        "com.airbnb.android:lottie-compose:${Versions.Compose.Lottie}",
         "androidx.compose.ui:ui:${Versions.Compose.Version}",
         "androidx.compose.material:material:${Versions.Compose.Version}",
         "androidx.compose.material:material-icons-extended:${Versions.Compose.Version}",
-        "androidx.compose.runtime:runtime-livedata:${Versions.Compose.Version}",
         "androidx.compose.ui:ui-tooling:${Versions.Compose.Version}"
     )
 
     val compiler = listOf(
-        "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}",
-        "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}",
+        "com.google.dagger:dagger-compiler:${Versions.Di.Dagger}",
         "androidx.room:room-compiler:${Versions.Jetpack.Room}"
     )
 }

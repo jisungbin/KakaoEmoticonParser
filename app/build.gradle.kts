@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
     id("name.remal.check-dependency-updates") version "1.2.2"
