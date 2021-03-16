@@ -13,9 +13,7 @@
     <string name="dialog_downloading">다운로드중…</string>
     <string name="dialog_download_done">다운로드 완료!</string>
 
-    <string name="image_description_emoticon_thumbnail">emoticon_thumbnail</string>
-    <string name="image_description_emoticon_image">emoticon_image</string>
-    <string name="image_description_image_gif">emoticon_is_gif</string>
-    <string name="image_description_image_big">emoticon_is_big</string>
-    <string name="image_description_image_have_sound">emoticon_have_sound</string>
+    <string name="navigation_search">검색</string>
+    <string name="navigation_favorite">즐겨찾기</string>
+    <string name="navigation_setting">설정</string>
 </resources>
