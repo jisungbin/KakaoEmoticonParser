@@ -28,9 +28,9 @@ object Versions {
     }
 
     object Util {
-        const val AndroidUtil = "4.2.6"
+        const val AndroidUtil = "5.1.5"
         const val CrashReporter = "1.1.0"
-        const val JsonConverter = "2.4.0"
+        const val JsonConverter = "2.9.0"
     }
 
     object Network {
