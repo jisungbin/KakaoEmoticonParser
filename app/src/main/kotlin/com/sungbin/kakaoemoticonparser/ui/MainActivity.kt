@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
@@ -22,23 +24,53 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.sungbin.kakaoemoticonparser.R
-import com.sungbin.kakaoemoticonparser.ui.composable.RotateIcon
+import com.sungbin.kakaoemoticonparser.theme.AppTheme
+import com.sungbin.kakaoemoticonparser.theme.AppThemeState
+import com.sungbin.kakaoemoticonparser.theme.ColorPallet
+import com.sungbin.kakaoemoticonparser.theme.SystemUiController
+import com.sungbin.kakaoemoticonparser.theme.blue700
+import com.sungbin.kakaoemoticonparser.theme.green700
+import com.sungbin.kakaoemoticonparser.theme.orange700
+import com.sungbin.kakaoemoticonparser.theme.purple700
 import com.sungbin.kakaoemoticonparser.ui.home.HomeContent
 import com.sungbin.kakaoemoticonparser.ui.test.TestContent
+import com.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent { MainContent() }
+        setContent {
+            val systemUiController = remember { SystemUiController(window) }
+            val appTheme = remember { mutableStateOf(AppThemeState()) }
+            BindView(appTheme.value, systemUiController) {
+                MainContent(appTheme)
+            }
+        }
     }
 
-    @Preview
     @Composable
-    private fun MainContent() {
+    private fun BindView(
+        appThemeState: AppThemeState,
+        systemUiController: SystemUiController?,
+        content: @Composable () -> Unit
+    ) {
+        val color = when (appThemeState.pallet) {
+            ColorPallet.GREEN -> green700
+            ColorPallet.BLUE -> blue700
+            ColorPallet.ORANGE -> orange700
+            ColorPallet.PURPLE -> purple700
+        }
+        systemUiController?.setStatusBarColor(color, appThemeState.darkTheme)
+        AppTheme(appThemeState.darkTheme, appThemeState.pallet) {
+            content()
+        }
+    }
+
+    @Composable
+    private fun MainContent(appThemeState: MutableState<AppThemeState>) {
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
 
         Column {
@@ -57,9 +89,11 @@ class MainActivity : ComponentActivity() {
     ) {
         Column(modifier = modifier) {
             Crossfade(contentType) { type ->
-                when (type) {
-                    NavigationType.SEARCH -> HomeContent()
-                    else -> TestContent()
+                Surface(color = MaterialTheme.colors.background) {
+                    when (type) {
+                        NavigationType.SEARCH -> HomeContent()
+                        else -> TestContent()
+                    }
                 }
             }
         }

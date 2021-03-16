@@ -1,4 +1,4 @@
-package com.sungbin.kakaoemoticonparser.ui.composable
+package com.sungbin.kakaoemoticonparser.ui.widget
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
