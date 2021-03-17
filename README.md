@@ -46,6 +46,10 @@
 5. Room
 6. Coroutines, RxKotlin
 
+# Base Reference
+1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
+2. [KakaoEmoticonDownloader](https://github.com/DarkTornado/KakaoEmoticonDownloader)
+
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
 
