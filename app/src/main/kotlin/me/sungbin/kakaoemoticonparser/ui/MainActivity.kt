@@ -7,6 +7,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -34,6 +35,7 @@ import me.sungbin.kakaoemoticonparser.ui.test.TestContent
 import me.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
 import me.sungbin.kakaoemoticonparser.util.parseColor
 
+@ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
 
     @ExperimentalComposeUiApi

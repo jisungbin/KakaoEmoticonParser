@@ -18,6 +18,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetState
+import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.Button
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
@@ -25,11 +30,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -48,18 +55,23 @@ import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
 import com.airbnb.lottie.compose.rememberLottieAnimationState
+import com.google.accompanist.glide.GlideImage
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
+import kotlinx.coroutines.launch
+import me.sungbin.androidutils.util.Logger
+import me.sungbin.androidutils.util.PermissionUtil
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonComponent
 import me.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
 import me.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
+import me.sungbin.kakaoemoticonparser.emoticon.model.detail.Result
+import me.sungbin.kakaoemoticonparser.theme.shapes
 import me.sungbin.kakaoemoticonparser.theme.typography
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
-import me.sungbin.androidutils.util.Logger
-import me.sungbin.androidutils.util.PermissionUtil
 import retrofit2.Retrofit
 
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 class SearchContent {
 
@@ -68,6 +80,7 @@ class SearchContent {
 
     lateinit var context: Context
     lateinit var alert: AlertDialog
+    private val emoticonContent by lazy { EmoticonContent() }
 
     private val emoticonItems: MutableList<ContentItem?> = mutableListOf()
 
@@ -188,22 +201,69 @@ class SearchContent {
 
     @Composable
     private fun ResultContent() {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(
-                items = emoticonItems,
-                itemContent = { emoticon ->
-                    Box(
-                        Modifier.padding(
-                            start = dimensionResource(R.dimen.margin_default),
-                            end = dimensionResource(R.dimen.margin_default),
-                            bottom = dimensionResource(R.dimen.margin_half),
-                            top = dimensionResource(R.dimen.margin_half)
+        var emoticon by remember { mutableStateOf<Result?>(null) }
+        val coroutineScope = rememberCoroutineScope()
+        val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+            bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+        )
+        emoticonContent.setOnEmoticonClickListener {
+            Logger.w("onEmoticonClicked")
+            emoticon = this
+            coroutineScope.launch {
+                if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+                    bottomSheetScaffoldState.bottomSheetState.expand()
+                }
+            }
+        }
+        BottomSheetScaffold(
+            sheetShape = shapes.large,
+            sheetElevation = dimensionResource(R.dimen.margin_twice_half),
+            scaffoldState = bottomSheetScaffoldState,
+            sheetPeekHeight = 0.dp,
+            sheetContent = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(R.dimen.margin_default)),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    GlideImage(
+                        data = emoticon?.giftImageUrl ?: "",
+                        contentDescription = null,
+                        modifier = Modifier.size(300.dp, 550.dp)
+                    )
+                    Button(
+                        onClick = {
+                            // todo: download emoticons          
+                        },
+                        modifier = Modifier.padding(
+                            top = dimensionResource(R.dimen.margin_default),
+                            bottom = dimensionResource(R.dimen.margin_default)
                         )
                     ) {
-                        EmoticonContent().Bind(emoticon!!)
+                        Text(text = stringResource(R.string.bottomsheet_download))
                     }
                 }
-            )
+            }
+        ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(
+                    items = emoticonItems,
+                    itemContent = { emoticon ->
+                        Box(
+                            Modifier.padding(
+                                start = dimensionResource(R.dimen.margin_default),
+                                end = dimensionResource(R.dimen.margin_default),
+                                bottom = dimensionResource(R.dimen.margin_half),
+                                top = dimensionResource(R.dimen.margin_half)
+                            )
+                        ) {
+                            emoticonContent.Bind(emoticon!!)
+                        }
+                    }
+                )
+            }
         }
     }
 
@@ -219,7 +279,7 @@ class SearchContent {
 
     private fun searchEmoticon(query: String, searchState: MutableState<SearchContentState>) {
         client.create(EmoticonInterface::class.java).run {
-            showLoadingDialog()
+            showLoadingDialog() // todo: I can`t use `ComposableFunction` at this scope.
             getSearchData(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -228,6 +288,7 @@ class SearchContent {
                         Logger.w("result", response.result.totalCount)
                         if (response.result.totalCount == 0) {
                             searchState.value = SearchContentState.NULL
+                            Logger.w("result", "response.result.totalCount")
                         } else {
                             emoticonItems.addAll(response.result.content)
                         }

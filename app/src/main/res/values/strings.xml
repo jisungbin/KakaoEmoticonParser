@@ -8,10 +8,9 @@
     <string name="main_search_first">검색을 진행해 주세요</string>
     <string name="main_search_empty">검색 결과가 없어요.\n다른 키워드로 검색해 보세요 :)</string>
 
-    <string name="dialog_loading">불러오는 중…</string>
-    <string name="dialog_download">다운로드</string>
-    <string name="dialog_downloading">다운로드중…</string>
-    <string name="dialog_download_done">다운로드 완료!</string>
+    <string name="bottomsheet_download">다운로드</string>
+    <string name="bottomsheet_downloading">다운로드중…</string>
+    <string name="bottomsheet_download_done">다운로드 완료!</string>
 
     <string name="navigation_search">검색</string>
     <string name="navigation_favorite">즐겨찾기</string>
