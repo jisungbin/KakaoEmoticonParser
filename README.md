@@ -1,4 +1,4 @@
-<h1 align=center>카카오톡 이모티콘 추출기</h1>
+<h1 align=center>카카오톡 이모티콘 추출기 <a href="https://codebeat.co/projects/github-com-jisungbin-kakaoemoticonparser-master"><img alt="codebeat badge" src="https://codebeat.co/badges/21b6a898-d4e9-48aa-98a1-b2d8c3d2847c"/></a> <a href="https://www.codefactor.io/repository/github/jisungbin/kakaoemoticonparser"><img src="https://www.codefactor.io/repository/github/jisungbin/kakaoemoticonparser/badge" alt="CodeFactor"/></a></h1>
 
 ![logo](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/%ED%8C%8C%EB%8C%95%EC%9D%B4.jpg)
 
