@@ -1,6 +1,5 @@
 package me.sungbin.kakaoemoticonparser.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.shapes
 import androidx.compose.material.darkColors
@@ -114,15 +113,16 @@ enum class ColorPallet {
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    colorPallet: ColorPallet = ColorPallet.BLUE,
+    appThemeState: AppThemeState,
     content: @Composable () -> Unit,
 ) {
-    val colors = when (colorPallet) {
-        ColorPallet.GREEN -> if (darkTheme) DarkGreenColorPalette else LightGreenColorPalette
-        ColorPallet.PURPLE -> if (darkTheme) DarkPurpleColorPalette else LightPurpleColorPalette
-        ColorPallet.ORANGE -> if (darkTheme) DarkOrangeColorPalette else LightOrangeColorPalette
-        ColorPallet.BLUE -> if (darkTheme) DarkBlueColorPalette else LightBlueColorPalette
+    val colors = appThemeState.run {
+        when (pallet) {
+            ColorPallet.GREEN -> if (darkTheme) DarkGreenColorPalette else LightGreenColorPalette
+            ColorPallet.PURPLE -> if (darkTheme) DarkPurpleColorPalette else LightPurpleColorPalette
+            ColorPallet.ORANGE -> if (darkTheme) DarkOrangeColorPalette else LightOrangeColorPalette
+            ColorPallet.BLUE -> if (darkTheme) DarkBlueColorPalette else LightBlueColorPalette
+        }
     }
 
     MaterialTheme(

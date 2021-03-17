@@ -1,18 +1,19 @@
 {
-  "version": 2,
+  "version": 3,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "me.sungbin.kakaoemoticonparser",
-  "variantName": "processReleaseResources",
+  "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 15,
-      "versionName": "1.1.1",
-      "outputFile": "v1.1.1(15)-release.apk"
+      "versionCode": 20,
+      "versionName": "제발코로나종식되게해주세요_1",
+      "outputFile": "v제발코로나종식되게해주세요_1 (20)-release.apk"
     }
-  ]
+  ],
+  "elementType": "File"
 }
