@@ -46,6 +46,7 @@
 5. Room
 6. Coroutines, RxKotlin
 7. Kotlin-DSL Gradle
+8. Clean-Code 100% (All `A`)
 
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
