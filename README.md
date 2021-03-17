@@ -45,6 +45,7 @@
 4. Retrofit, OkHttp
 5. Room
 6. Coroutines, RxKotlin
+7. Kotlin-DSL Gradle
 
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
