@@ -5,12 +5,16 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -21,9 +25,11 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -44,11 +50,11 @@ import com.airbnb.lottie.compose.rememberLottieAnimationState
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonComponent
 import com.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
+import com.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import com.sungbin.kakaoemoticonparser.theme.typography
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
-import me.sungbin.androidutils.extensions.doDelay
 import me.sungbin.androidutils.util.Logger
 import me.sungbin.androidutils.util.PermissionUtil
 import retrofit2.Retrofit
@@ -62,6 +68,8 @@ class SearchContent {
     lateinit var context: Context
     lateinit var alert: AlertDialog
 
+    private val emoticonItems: MutableList<ContentItem?> = mutableListOf()
+
     init {
         DaggerEmoticonComponent.builder()
             .build()
@@ -71,6 +79,7 @@ class SearchContent {
     @Composable
     fun Bind() {
         context = LocalContext.current
+        val searchState = rememberSaveable { mutableStateOf(SearchContentState.HOME) }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -90,20 +99,17 @@ class SearchContent {
                 )
             },
             content = {
-                BindHomeContent()
+                BindSearchContent(searchState)
             }
         )
     }
 
     @ExperimentalComposeUiApi
     @Composable
-    private fun BindHomeContent() {
+    private fun BindSearchContent(
+        searchState: MutableState<SearchContentState>
+    ) {
         val context = LocalContext.current
-        val keyboardController = LocalSoftwareKeyboardController.current
-        var searchText by remember { mutableStateOf(TextFieldValue()) }
-        val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.search) }
-        val animationState =
-            rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
 
         PermissionUtil.request(
             context as Activity,
@@ -119,66 +125,112 @@ class SearchContent {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(dimensionResource(R.dimen.margin_default))
         ) {
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = searchText,
-                label = { Text(text = stringResource(R.string.main_search_emoticon)) },
-                onValueChange = { searchText = it },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = null,
-                        tint = Color.Gray,
-                    )
-                },
-                maxLines = 1,
-                singleLine = true,
-                keyboardActions = KeyboardActions {
-                    searchEmoticon(searchText.text)
-                    keyboardController?.hideSoftwareKeyboard()
-                },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
-            )
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                LottieAnimation(
-                    spec = animationSpec,
-                    animationState = animationState,
-                    modifier = Modifier
-                        .size(250.dp, 50.dp)
-                        .padding(top = dimensionResource(R.dimen.margin_default))
-                )
-                Text(
-                    text = stringResource(R.string.main_search_first),
-                    style = typography.body1,
-                    modifier = Modifier.padding(top = dimensionResource(R.dimen.margin_twice))
-                )
+            Crossfade(searchState.value) { state ->
+                when (state) {
+                    SearchContentState.HOME -> SearchContent(searchState)
+                    SearchContentState.RESULT -> ResultContent()
+                    SearchContentState.NULL -> NullContent()
+                    SearchContentState.ERROR -> ErrorContent()
+                }
             }
         }
     }
 
-    private fun searchEmoticon(query: String) {
+    @Composable
+    private fun SearchContent(searchState: MutableState<SearchContentState>) {
+        val keyboardController = LocalSoftwareKeyboardController.current
+        var searchText by remember { mutableStateOf(TextFieldValue()) }
+        val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.search) }
+        val animationState =
+            rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = searchText,
+            label = { Text(text = stringResource(R.string.main_search_emoticon)) },
+            onValueChange = { searchText = it },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = null,
+                    tint = Color.Gray,
+                )
+            },
+            maxLines = 1,
+            singleLine = true,
+            keyboardActions = KeyboardActions {
+                searchEmoticon(searchText.text, searchState)
+                // todo: option - clear `searchText` after searching.
+                keyboardController?.hideSoftwareKeyboard()
+            },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
+        )
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxHeight()
+        ) {
+            LottieAnimation(
+                spec = animationSpec,
+                animationState = animationState,
+                modifier = Modifier
+                    .size(250.dp, 50.dp)
+                    .padding(top = dimensionResource(R.dimen.margin_default))
+            )
+            Text(
+                text = stringResource(R.string.main_search_first),
+                style = typography.body1,
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.margin_twice))
+            )
+        }
+    }
+
+    @Composable
+    private fun ResultContent() {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(
+                items = emoticonItems,
+                itemContent = { emoticon ->
+                    EmoticonContent(emoticon!!)
+                }
+            )
+        }
+    }
+
+    @Composable
+    private fun NullContent() {
+        Logger.w("result: null")
+    }
+
+    @Composable
+    private fun ErrorContent() {
+        Logger.w("result: error")
+    }
+
+    private fun searchEmoticon(query: String, searchState: MutableState<SearchContentState>) {
         client.create(EmoticonInterface::class.java).run {
             showLoadingDialog()
-            doDelay(1000) {
-                getSearchData(query)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { response ->
-                            Logger.i("result", response.result?.totalCount)
-                        },
-                        {
-                            Logger.e("error", it)
-                        },
-                        {
-                            closeLoadingDialog()
+            getSearchData(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { response ->
+                        Logger.w("result", response.result?.totalCount)
+                        if (response.result?.totalCount == 0) {
+                            searchState.value = SearchContentState.NULL
+                        } else {
+                            emoticonItems.addAll(response.result!!.content!!)
                         }
-                    )
-            }
+                    },
+                    {
+                        searchState.value = SearchContentState.ERROR
+                        Logger.e("error", it)
+                    },
+                    {
+                        searchState.value = SearchContentState.RESULT
+                        closeLoadingDialog()
+                    }
+                )
         }
     }
 

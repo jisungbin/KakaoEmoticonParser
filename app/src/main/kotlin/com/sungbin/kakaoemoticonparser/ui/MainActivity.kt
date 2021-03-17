@@ -28,15 +28,11 @@ import androidx.compose.ui.res.stringResource
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.theme.AppTheme
 import com.sungbin.kakaoemoticonparser.theme.AppThemeState
-import com.sungbin.kakaoemoticonparser.theme.ColorPallet
 import com.sungbin.kakaoemoticonparser.theme.SystemUiController
-import com.sungbin.kakaoemoticonparser.theme.blue700
-import com.sungbin.kakaoemoticonparser.theme.green700
-import com.sungbin.kakaoemoticonparser.theme.orange700
-import com.sungbin.kakaoemoticonparser.theme.purple700
 import com.sungbin.kakaoemoticonparser.ui.search.SearchContent
 import com.sungbin.kakaoemoticonparser.ui.test.TestContent
 import com.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
+import com.sungbin.kakaoemoticonparser.util.parseColor
 
 class MainActivity : ComponentActivity() {
 
@@ -59,13 +55,7 @@ class MainActivity : ComponentActivity() {
         systemUiController: SystemUiController?,
         content: @Composable () -> Unit
     ) {
-        val color = when (appThemeState.pallet) {
-            ColorPallet.GREEN -> green700
-            ColorPallet.BLUE -> blue700
-            ColorPallet.ORANGE -> orange700
-            ColorPallet.PURPLE -> purple700
-        }
-        systemUiController?.setStatusBarColor(color, appThemeState.darkTheme)
+        systemUiController?.setStatusBarColor(appThemeState.parseColor(), appThemeState.darkTheme)
         AppTheme(appThemeState.darkTheme, appThemeState.pallet) {
             content()
         }
