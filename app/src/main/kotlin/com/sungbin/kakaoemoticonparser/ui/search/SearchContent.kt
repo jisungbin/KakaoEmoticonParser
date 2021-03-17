@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -120,18 +121,12 @@ class SearchContent {
             )
         )
 
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(dimensionResource(R.dimen.margin_default))
-        ) {
-            Crossfade(searchState.value) { state ->
-                when (state) {
-                    SearchContentState.HOME -> SearchContent(searchState)
-                    SearchContentState.RESULT -> ResultContent()
-                    SearchContentState.NULL -> NullContent()
-                    SearchContentState.ERROR -> ErrorContent()
-                }
+        Crossfade(searchState.value) { state ->
+            when (state) {
+                SearchContentState.HOME -> SearchContent(searchState)
+                SearchContentState.RESULT -> ResultContent()
+                SearchContentState.NULL -> NullContent()
+                SearchContentState.ERROR -> ErrorContent()
             }
         }
     }
@@ -144,44 +139,50 @@ class SearchContent {
         val animationState =
             rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
 
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = searchText,
-            label = { Text(text = stringResource(R.string.main_search_emoticon)) },
-            onValueChange = { searchText = it },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = null,
-                    tint = Color.Gray,
-                )
-            },
-            maxLines = 1,
-            singleLine = true,
-            keyboardActions = KeyboardActions {
-                searchEmoticon(searchText.text, searchState)
-                // todo: option - clear `searchText` after searching.
-                keyboardController?.hideSoftwareKeyboard()
-            },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
-        )
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier.padding(dimensionResource(R.dimen.margin_default))
         ) {
-            LottieAnimation(
-                spec = animationSpec,
-                animationState = animationState,
-                modifier = Modifier
-                    .size(250.dp, 50.dp)
-                    .padding(top = dimensionResource(R.dimen.margin_default))
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = searchText,
+                label = { Text(text = stringResource(R.string.main_search_emoticon)) },
+                onValueChange = { searchText = it },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = null,
+                        tint = Color.Gray,
+                    )
+                },
+                maxLines = 1,
+                singleLine = true,
+                keyboardActions = KeyboardActions {
+                    searchEmoticon(searchText.text, searchState)
+                    // todo: option - clear `searchText` after searching.
+                    keyboardController?.hideSoftwareKeyboard()
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
             )
-            Text(
-                text = stringResource(R.string.main_search_first),
-                style = typography.body1,
-                modifier = Modifier.padding(top = dimensionResource(R.dimen.margin_twice))
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                LottieAnimation(
+                    spec = animationSpec,
+                    animationState = animationState,
+                    modifier = Modifier
+                        .size(250.dp, 50.dp)
+                        .padding(top = dimensionResource(R.dimen.margin_default))
+                )
+                Text(
+                    text = stringResource(R.string.main_search_first),
+                    style = typography.body1,
+                    modifier = Modifier.padding(top = dimensionResource(R.dimen.margin_twice))
+                )
+            }
         }
     }
 
@@ -191,7 +192,16 @@ class SearchContent {
             items(
                 items = emoticonItems,
                 itemContent = { emoticon ->
-                    EmoticonContent(emoticon!!)
+                    Box(
+                        Modifier.padding(
+                            start = dimensionResource(R.dimen.margin_default),
+                            end = dimensionResource(R.dimen.margin_default),
+                            bottom = dimensionResource(R.dimen.margin_half),
+                            top = dimensionResource(R.dimen.margin_half)
+                        )
+                    ) {
+                        EmoticonContent(emoticon!!)
+                    }
                 }
             )
         }
@@ -244,6 +254,7 @@ class SearchContent {
                 playAnimation()
             }
         )
+        dialog.setCancelable(false)
         alert = dialog.create()
         alert.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         alert.show()

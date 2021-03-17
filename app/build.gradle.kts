@@ -44,6 +44,7 @@ android {
 
     kotlinOptions {
         jvmTarget = Application.jvmTarget
+        useIR = true
     }
 }
 

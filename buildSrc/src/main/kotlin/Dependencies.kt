@@ -27,6 +27,7 @@ object Versions {
         const val Lottie = "3.6.1"
         const val LottieCompose = "1.0.0-alpha07-SNAPSHOT"
         const val Glide = "0.6.2"
+        const val ConstraintLayout = "1.0.0-alpha04"
     }
 
     object Util {
@@ -83,6 +84,7 @@ object Dependencies {
         "com.airbnb.android:lottie:${Versions.Ui.Lottie}",
         "com.google.accompanist:accompanist-glide:${Versions.Ui.Glide}",
         "com.airbnb.android:lottie-compose:${Versions.Ui.LottieCompose}",
+        // "androidx.constraintlayout:constraintlayout-compose:${Versions.Ui.ConstraintLayout}"
     )
 
     val util = listOf(
