@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
     id("name.remal.check-dependency-updates") version "1.2.2"
@@ -19,8 +18,15 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
-        viewBinding = true
+        compose = true
+    }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.Compose.Version
     }
 
     sourceSets {
@@ -38,6 +44,7 @@ android {
 
     kotlinOptions {
         jvmTarget = Application.jvmTarget
+        useIR = true
     }
 }
 
@@ -49,5 +56,7 @@ dependencies {
     Dependencies.di.forEach(::implementation)
     Dependencies.ui.forEach(::implementation)
     Dependencies.util.forEach(::implementation)
+    Dependencies.compose.forEach(::implementation)
+    Dependencies.room.forEach(::implementation)
     Dependencies.compiler.forEach(::kapt)
 }
