@@ -35,7 +35,8 @@
 ----
 
 # 사용료
-사용료는 **1스타** 입니다!<br/>
+사용료는 **Star** 입니다!<br/>
+(팁은 **Fork** 입니다 🥰)
 
 # 사용 스킬
 1. Jetpack Compose (100%, No layout resource)
