@@ -44,9 +44,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val systemUiController = remember { SystemUiController(window) }
-            val appTheme = remember { mutableStateOf(AppThemeState()) }
-            BindView(appTheme.value, systemUiController) {
-                MainContent()
+            val appThemeState = remember { mutableStateOf(AppThemeState()) }
+            BindView(appThemeState.value, systemUiController) {
+                MainContent(appThemeState.value)
             }
         }
     }
@@ -58,18 +58,19 @@ class MainActivity : ComponentActivity() {
         content: @Composable () -> Unit
     ) {
         systemUiController?.setStatusBarColor(appThemeState.parseColor(), appThemeState.darkTheme)
-        AppTheme(appThemeState.darkTheme, appThemeState.pallet) {
+        AppTheme(appThemeState) {
             content()
         }
     }
 
     @ExperimentalComposeUiApi
     @Composable
-    private fun MainContent() {
+    private fun MainContent(appThemeState: AppThemeState) {
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
 
         Column {
             NavigationFragmentContent(
+                appThemeState = appThemeState,
                 contentType = navigationState.value,
                 modifier = Modifier.weight(1f)
             )
@@ -80,6 +81,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalComposeUiApi
     @Composable
     private fun NavigationFragmentContent(
+        appThemeState: AppThemeState,
         modifier: Modifier = Modifier,
         contentType: NavigationType
     ) {
@@ -87,7 +89,7 @@ class MainActivity : ComponentActivity() {
             Crossfade(contentType) { type ->
                 Surface(color = MaterialTheme.colors.background) {
                     when (type) {
-                        NavigationType.SEARCH -> SearchContent().Bind()
+                        NavigationType.SEARCH -> SearchContent().Bind(appThemeState)
                         else -> TestContent()
                     }
                 }

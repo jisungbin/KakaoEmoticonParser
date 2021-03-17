@@ -4,9 +4,9 @@ object Application {
     const val minSdk = 23
     const val targetSdk = 30
     const val compileSdk = 30
-    const val versionCode = 16
+    const val versionCode = 20
     const val jvmTarget = "1.8"
-    const val versionName = "1.2.0"
+    const val versionName = "제발코로나종식되게해주세요_1"
 
     val targetCompat = JavaVersion.VERSION_1_8
     val sourceCompat = JavaVersion.VERSION_1_8

@@ -103,7 +103,7 @@ class EmoticonContent {
                 GlideImage(
                     data = emoticon.titleImageUrl,
                     contentDescription = null,
-                    fadeIn = true,
+                    // fadeIn = true,
                     modifier = Modifier.size(75.dp)
                 )
                 Column {
