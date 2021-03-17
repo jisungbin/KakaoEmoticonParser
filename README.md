@@ -46,6 +46,6 @@
 6. Coroutines, RxKotlin
 
 # 라이선스
-`카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/sungbin5304/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
+`카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
 
 # Happy Coding :)
