@@ -58,10 +58,18 @@ import com.airbnb.lottie.compose.rememberLottieAnimationState
 import com.google.accompanist.glide.GlideImage
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.sungbin.androidutils.util.Logger
+import me.sungbin.androidutils.util.MediaUtil
 import me.sungbin.androidutils.util.PermissionUtil
+import me.sungbin.androidutils.util.StorageUtil
+import me.sungbin.androidutils.util.toastutil.ToastUtil
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonComponent
 import me.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
@@ -201,6 +209,7 @@ class SearchContent {
 
     @Composable
     private fun ResultContent() {
+        val context = LocalContext.current
         var emoticon by remember { mutableStateOf<Result?>(null) }
         val coroutineScope = rememberCoroutineScope()
         val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
@@ -235,7 +244,30 @@ class SearchContent {
                     )
                     Button(
                         onClick = {
-                            // todo: download emoticons          
+                            coroutineScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    runCatching {
+                                        var downloadIndex = 0
+                                        val downloadPath =
+                                            "${StorageUtil.sdcard}/KakaoEmoticonParser/${emoticon?.title}"
+                                        StorageUtil.createFolder(downloadPath)
+                                        fun download(url: String) {
+                                            URL(url).openStream().use { input ->
+                                                FileOutputStream(File("$downloadPath/${++downloadIndex}.png")).use { output ->
+                                                    input.copyTo(output)
+                                                }
+                                            }
+                                        }
+                                        emoticon?.thumbnailUrls!!.forEach(::download)
+                                        MediaUtil.scanning(context, downloadPath)
+                                        bottomSheetScaffoldState.bottomSheetState.collapse()
+                                    }
+                                }
+                            }
+                            ToastUtil.show(
+                                context,
+                                context.getString(R.string.bottomsheet_download_done)
+                            )
                         },
                         modifier = Modifier.padding(
                             top = dimensionResource(R.dimen.margin_default),

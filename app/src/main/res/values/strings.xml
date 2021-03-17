@@ -9,7 +9,6 @@
     <string name="main_search_empty">검색 결과가 없어요.\n다른 키워드로 검색해 보세요 :)</string>
 
     <string name="bottomsheet_download">다운로드</string>
-    <string name="bottomsheet_downloading">다운로드중…</string>
     <string name="bottomsheet_download_done">다운로드 완료!</string>
 
     <string name="navigation_search">검색</string>
