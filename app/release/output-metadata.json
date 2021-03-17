@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.sungbin.kakaoemoticonparser",
+  "applicationId": "me.sungbin.kakaoemoticonparser",
   "variantName": "processReleaseResources",
   "elements": [
     {
