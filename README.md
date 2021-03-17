@@ -35,8 +35,8 @@
 ----
 
 # 사용료
-사용료는 **Star** 입니다!<br/>
-(팁은 **Fork** 입니다 🥰)
+사용료는 **Star** ![GitHub Repo stars](https://img.shields.io/github/stars/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다!<br/>
+(팁은 **Fork** ![GitHub Repo forks](https://img.shields.io/github/forks/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다 🥰)
 
 # 사용 스킬
 1. Jetpack Compose (100%, No layout resource)
