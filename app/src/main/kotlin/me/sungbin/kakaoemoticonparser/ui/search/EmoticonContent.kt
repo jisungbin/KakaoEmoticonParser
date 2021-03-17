@@ -13,10 +13,15 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Fullscreen
 import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -49,6 +54,7 @@ class EmoticonContent {
     }
 
     private var listener: OnEmoticonClickListener? = null
+
     interface OnEmoticonClickListener {
         fun onEmoticonClicked(emoticon: Result)
     }
@@ -121,26 +127,25 @@ class EmoticonContent {
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.Bottom
                     ) {
+                        // todo: load from room
+                        var isFavorite by rememberSaveable { mutableStateOf(false) }
                         Icon(
                             imageVector = Icons.Outlined.MusicNote,
-                            contentDescription = null,
-                            modifier = Modifier.clickable {
-                            }
+                            contentDescription = null
                         )
                         Icon(
                             imageVector = Icons.Outlined.Fullscreen,
                             contentDescription = null,
-                            modifier = Modifier
-                                .padding(start = dimensionResource(R.dimen.margin_half))
-                                .clickable {
-                                }
+                            modifier = Modifier.padding(start = dimensionResource(R.dimen.margin_half))
                         )
                         Icon(
-                            imageVector = Icons.Outlined.FavoriteBorder,
+                            imageVector = if (!isFavorite) Icons.Outlined.FavoriteBorder else Icons.Outlined.Favorite,
                             contentDescription = null,
                             modifier = Modifier
                                 .padding(start = dimensionResource(R.dimen.margin_half))
                                 .clickable {
+                                    isFavorite = !isFavorite
+                                    // todo: save to room
                                 }
                         )
                     }
