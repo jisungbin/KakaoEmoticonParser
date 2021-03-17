@@ -51,7 +51,6 @@ import com.airbnb.lottie.compose.rememberLottieAnimationState
 import com.sungbin.kakaoemoticonparser.R
 import com.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonComponent
 import com.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
-import com.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import com.sungbin.kakaoemoticonparser.theme.typography
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

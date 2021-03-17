@@ -32,14 +32,12 @@ import com.sungbin.kakaoemoticonparser.theme.typography
 fun EmoticonContent(emoticon: ContentItem) {
     Card(
         shape = shapes.medium,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp),
+        modifier = Modifier.fillMaxWidth().height(100.dp),
         elevation = dimensionResource(R.dimen.margin_twice_half)
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             GlideImage(
-                data = emoticon.titleImageUrl!!,
+                data = emoticon.titleImageUrl,
                 contentDescription = null,
                 fadeIn = true,
                 modifier = Modifier.size(75.dp)
@@ -52,7 +50,7 @@ fun EmoticonContent(emoticon: ContentItem) {
                 ) {
                     Text(
                         textAlign = TextAlign.Center,
-                        text = emoticon.title!!,
+                        text = emoticon.title,
                         fontWeight = FontWeight.Bold,
                         style = typography.body1
                     )

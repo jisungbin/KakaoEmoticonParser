@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class Result(
 
     @field:SerializedName("last")
-    val last: Boolean? = null,
+    val last: Boolean,
 
     @field:SerializedName("totalCount")
-    val totalCount: Int? = null,
+    val totalCount: Int,
 
     @field:SerializedName("content")
-    val content: List<ContentItem?>? = null
+    val content: List<ContentItem>
 )

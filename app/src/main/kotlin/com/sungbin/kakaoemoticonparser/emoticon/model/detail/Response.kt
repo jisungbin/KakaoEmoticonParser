@@ -1,4 +1,4 @@
-package com.sungbin.kakaoemoticonparser.emoticon.model
+package com.sungbin.kakaoemoticonparser.emoticon.model.detail
 
 import com.google.gson.annotations.SerializedName
 
