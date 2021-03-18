@@ -42,6 +42,12 @@
 사용료는 **Star** ![GitHub Repo stars](https://img.shields.io/github/stars/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다!<br/>
 (팁은 **Fork** ![GitHub Repo forks](https://img.shields.io/github/forks/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다 🥰)
 
+# 앱 기능
+1. 이모티콘 검색 및 다운로드
+2. 앱 테마 변경/다크테마 지원
+3. 이모티콘 즐겨찾기 지원
+4. 이모티콘 검색 필터(사운드 있는 이모티콘/큰 이모티콘) 지원
+
 # 사용 스킬
 1. Jetpack Compose (100%, No layout resource)
 2. Kotlin (100%)
