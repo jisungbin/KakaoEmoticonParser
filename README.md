@@ -1,4 +1,4 @@
-<h1 align=center>카카오톡 이모티콘 추출기</h1>
+<h1 align=center>카카오톡 이모티콘 추출기 <a href="https://codebeat.co/projects/github-com-jisungbin-kakaoemoticonparser-master"><img alt="codebeat badge" src="https://codebeat.co/badges/21b6a898-d4e9-48aa-98a1-b2d8c3d2847c"/></a> <a href="https://www.codefactor.io/repository/github/jisungbin/kakaoemoticonparser"><img src="https://www.codefactor.io/repository/github/jisungbin/kakaoemoticonparser/badge" alt="CodeFactor"/></a></h1>
 
 ![logo](https://github.com/sungbin5304/KakaoEmoticonParser/raw/master/%ED%8C%8C%EB%8C%95%EC%9D%B4.jpg)
 
@@ -28,6 +28,10 @@
 이럴때는 [이 링크](https://github.com/sungbin5304/KakaoEmoticonParser/releases/tag/2.0.0)에서 직접 `apk` 파일을 다운받아 보세요!<br/>
 또는 `bin` 확장자를 `apk` 확장자로 바꿔보세요.
 
+### 난 아이폰인데??
+`iOS`는 아쉽게도 지원이 되지 않습니다 🙏 <br/>
+지금 제가 열심히 `swift`를 공부하고 있으니 내년 안에는 `iOS`버전까지 출시 해 볼게요!
+
 ### 다운로드 주의사항!
 1. 기본 앱을 제거 후 새로 다운받아서 설치해 주세요.
 2. 구글 프로텍터 관련 경고가 뜨면 사용 안함을 선택해 주세요.
@@ -45,6 +49,12 @@
 4. Retrofit, OkHttp
 5. Room
 6. Coroutines, RxKotlin
+7. Kotlin-DSL Gradle
+8. Clean-Code 100% (All `A`)
+
+# Base Reference
+1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
+2. [KakaoEmoticonDownloader](https://github.com/DarkTornado/KakaoEmoticonDownloader)
 
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
