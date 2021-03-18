@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.mahfa.dnswitch.DayNightSwitch
+import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
@@ -57,6 +58,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             val systemUiController = remember { SystemUiController(window) }
             val appThemeState = remember { mutableStateOf(AppThemeState().init(context)) }
+            Logger.w(appThemeState.value.isDarkMode.toString(), appThemeState.value.pallet)
             BindView(appThemeState.value, systemUiController) {
                 MainContent(appThemeState)
             }

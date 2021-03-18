@@ -36,7 +36,6 @@ import me.sungbin.kakaoemoticonparser.theme.room.ThemeDatabase
 import me.sungbin.kakaoemoticonparser.theme.room.ThemeEntity
 import me.sungbin.kakaoemoticonparser.theme.room.TypeConvertUtil
 import me.sungbin.kakaoemoticonparser.theme.typography
-import me.sungbin.kakaoemoticonparser.util.parseColor
 
 @Composable
 fun SettingContent(appThemeState: MutableState<AppThemeState>) {
@@ -122,11 +121,11 @@ private fun BindThemeSettingMenu(
         modifier = Modifier.animateContentSize()
     ) {
         items.forEachIndexed { index, title ->
-            Logger.w(TypeConvertUtil.intToPallet(index))
-            val newAppThemeState =
-                appThemeState.value.copy(pallet = TypeConvertUtil.intToPallet(index))
             DropdownMenuItem(
                 onClick = {
+                    val newAppThemeState =
+                        appThemeState.value.copy(pallet = TypeConvertUtil.intToPallet(index))
+                    Logger.w(TypeConvertUtil.intToPallet(index))
                     appThemeState.value = newAppThemeState
                     showMenu.value = false
                     coroutineScope.launch {
@@ -141,7 +140,7 @@ private fun BindThemeSettingMenu(
             ) {
                 Text(
                     text = title,
-                    color = newAppThemeState.parseColor()
+                    color = TypeConvertUtil.intToColor(index)
                 )
             }
         }
