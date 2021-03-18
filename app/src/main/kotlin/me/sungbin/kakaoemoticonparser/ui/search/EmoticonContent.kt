@@ -20,11 +20,13 @@ import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,12 +35,15 @@ import com.google.accompanist.glide.GlideImage
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonDetailComponent
 import me.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
 import me.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import me.sungbin.kakaoemoticonparser.emoticon.model.detail.Result
+import me.sungbin.kakaoemoticonparser.emoticon.room.EmoticonDatabase
+import me.sungbin.kakaoemoticonparser.emoticon.room.EmoticonEntity
 import me.sungbin.kakaoemoticonparser.theme.shapes
 import me.sungbin.kakaoemoticonparser.theme.typography
 import retrofit2.Retrofit
@@ -70,6 +75,8 @@ class EmoticonContent {
 
     @Composable
     fun Bind(emoticon: ContentItem) {
+        val emoticonDb = EmoticonDatabase.instance(LocalContext.current)
+        val coroutineScope = rememberCoroutineScope()
         Card(
             shape = shapes.medium,
             modifier = Modifier
@@ -128,8 +135,11 @@ class EmoticonContent {
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.Bottom
                     ) {
-                        // todo: load from room
                         var isFavorite by rememberSaveable { mutableStateOf(false) }
+                        coroutineScope.launch {
+                            val favoriteEmoticon = emoticonDb.dao().getFavoriteEmoticon(emoticon.title)
+                            isFavorite = favoriteEmoticon != null
+                        }
                         Icon(
                             imageVector = Icons.Outlined.MusicNote,
                             contentDescription = null,
@@ -147,8 +157,15 @@ class EmoticonContent {
                             modifier = Modifier
                                 .padding(start = dimensionResource(R.dimen.margin_half))
                                 .clickable {
-                                    isFavorite = !isFavorite
-                                    // todo: save to room
+                                    coroutineScope.launch {
+                                        val entity = EmoticonEntity(title = emoticon.title)
+                                        if (!isFavorite) {
+                                            emoticonDb.dao().insert(entity)
+                                        } else {
+                                            emoticonDb.dao().delete(entity)
+                                        }
+                                        isFavorite = !isFavorite
+                                    }
                                 }
                         )
                     }

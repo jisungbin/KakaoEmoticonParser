@@ -14,7 +14,12 @@ android {
         versionCode = Application.versionCode
         versionName = Application.versionName
         multiDexEnabled = true
-        setProperty("archivesBaseName", "v$versionName ($versionCode)")
+        setProperty("archivesBaseName", "$versionName ($versionCode)")
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildFeatures {

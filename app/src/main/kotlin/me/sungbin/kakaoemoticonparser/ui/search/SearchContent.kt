@@ -204,7 +204,7 @@ class SearchContent {
             bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
         )
         emoticonContent.setOnEmoticonClickListener {
-            Logger.w("onEmoticonClicked")
+            Logger.w("onEmoticonClicked", this)
             emoticon = this
             coroutineScope.launch {
                 if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
