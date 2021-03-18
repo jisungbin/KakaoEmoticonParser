@@ -42,6 +42,13 @@
 사용료는 **Star** ![GitHub Repo stars](https://img.shields.io/github/stars/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다!<br/>
 (팁은 **Fork** ![GitHub Repo forks](https://img.shields.io/github/forks/jisungbin/KakaoEmoticonParser?style=flat-square) 입니다 🥰)
 
+# 앱 기능
+1. 이모티콘 검색 및 다운로드
+2. 앱 테마 변경/다크테마 지원
+3. 이모티콘 즐겨찾기 지원
+4. 이모티콘 검색 필터(사운드 있는 이모티콘/큰 이모티콘) 지원
+5. 예쁜 에니메이션 다수 포함
+
 # 사용 스킬
 1. Jetpack Compose (100%, No layout resource)
 2. Kotlin (100%)
@@ -52,11 +59,18 @@
 7. Kotlin-DSL Gradle
 8. Clean-Code 100% (All `A`)
 
+# 알려진 버그
+1. - [ ] 가끔씩 `BottomSheet`가 열리지 않음
+2. - [ ] 각 content 마다 매번 `instance` 초기화
+
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
 2. [KakaoEmoticonDownloader](https://github.com/DarkTornado/KakaoEmoticonDownloader)
 
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
+
+# 오픈소스 라이선스
+[[opensource-license]](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/opensource-license.md)
 
 # Happy Coding :)
