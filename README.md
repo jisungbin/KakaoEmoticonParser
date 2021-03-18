@@ -44,7 +44,7 @@
 
 # 앱 기능
 1. 이모티콘 검색 및 다운로드
-2. 앱 테마 변경/다크테마 지원
+2. ~~앱 테마 변경/다크테마 지원~~ (많은 버그)
 3. 이모티콘 즐겨찾기 지원
 4. 이모티콘 검색 필터(사운드 있는 이모티콘/큰 이모티콘) 지원
 5. 예쁜 에니메이션 다수 포함
@@ -63,6 +63,7 @@
 1. - [ ] 가끔씩 `BottomSheet`가 열리지 않음
 2. - [ ] 각 content 마다 매번 `instance` 초기화
 3. - [ ] 가끔씩 content 로드 오래걸림
+4. - [ ] 테마 변경 부분 아주 많은 버그
 
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
