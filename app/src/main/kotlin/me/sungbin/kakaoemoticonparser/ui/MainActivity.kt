@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ExperimentalMaterialApi
@@ -30,9 +32,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.mahfa.dnswitch.DayNightSwitch
 import me.sungbin.kakaoemoticonparser.R
-import me.sungbin.kakaoemoticonparser.theme.AppTheme
+import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.SystemUiController
 import me.sungbin.kakaoemoticonparser.theme.typography
@@ -66,7 +70,7 @@ class MainActivity : ComponentActivity() {
         content: @Composable () -> Unit
     ) {
         systemUiController?.setStatusBarColor(appThemeState.parseColor(), appThemeState.isDarkMode)
-        AppTheme(appThemeState) {
+        AppMaterialTheme(appThemeState) {
             content()
         }
     }
@@ -74,6 +78,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalComposeUiApi
     @Composable
     private fun MainContent(appThemeState: MutableState<AppThemeState>) {
+        val context = LocalContext.current
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
         Scaffold(
             topBar = {
@@ -92,12 +97,21 @@ class MainActivity : ComponentActivity() {
                     },
                     elevation = dimensionResource(R.dimen.margin_half),
                     actions = {
-                        DayNightSwitch(LocalContext.current).apply {
-                            setIsNight(appThemeState.value.isDarkMode, true)
-                            setListener { isNight ->
-                                appThemeState.value = appThemeState.value.copy(isDarkMode = isNight)
+                        val dayNightSwitch = remember {
+                            DayNightSwitch(context).apply {
+                                setIsNight(appThemeState.value.isDarkMode, true)
+                                setListener { isNight ->
+                                    appThemeState.value =
+                                        appThemeState.value.copy(isDarkMode = isNight)
+                                }
                             }
                         }
+                        AndroidView(
+                            factory = { dayNightSwitch },
+                            modifier = Modifier
+                                .size(70.dp, 30.dp)
+                                .padding(end = dimensionResource(R.dimen.margin_default))
+                        )
                     }
                 )
             },

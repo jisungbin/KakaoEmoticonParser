@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.theme.room.ThemeDatabase
 import me.sungbin.kakaoemoticonparser.theme.room.TypeConvertUtil
 
@@ -12,9 +13,10 @@ data class AppThemeState(
     var pallet: ColorPallet = ColorPallet.BLUE
 ) {
     fun init(context: Context): AppThemeState {
-        val themeDatabase = ThemeDatabase.instance(context)
+        val themeDatabase = ThemeDatabase.instance(context).dao()
         CoroutineScope(Dispatchers.IO).launch {
-            val themeEntity = themeDatabase.dao().getTheme()
+            val themeEntity = themeDatabase.getTheme()
+            Logger.w("AAA", listOf(themeEntity?.colorPallet, themeEntity?.isDarkTheme))
             isDarkMode = themeEntity?.isDarkTheme ?: false
             pallet = TypeConvertUtil.intToPallet(themeEntity?.colorPallet ?: 3) // BLUE
         }

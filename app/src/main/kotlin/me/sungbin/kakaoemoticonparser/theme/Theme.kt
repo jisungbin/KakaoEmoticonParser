@@ -113,7 +113,7 @@ enum class ColorPallet {
 }
 
 @Composable
-fun AppTheme(
+fun AppMaterialTheme(
     appThemeState: AppThemeState,
     content: @Composable () -> Unit,
 ) {

@@ -28,9 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import me.sungbin.kakaoemoticonparser.R
-import me.sungbin.kakaoemoticonparser.theme.AppTheme
+import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
-import me.sungbin.kakaoemoticonparser.theme.ColorPallet
 import me.sungbin.kakaoemoticonparser.theme.room.ThemeDatabase
 import me.sungbin.kakaoemoticonparser.theme.room.ThemeEntity
 import me.sungbin.kakaoemoticonparser.theme.room.TypeConvertUtil
@@ -80,6 +79,7 @@ fun SettingContent(appThemeState: MutableState<AppThemeState>) {
             modifier = Modifier.fillMaxSize()
         ) {
             Button(
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.margin_twice)),
                 onClick = {
                     showMenu.value = !showMenu.value
                 }
@@ -90,8 +90,9 @@ fun SettingContent(appThemeState: MutableState<AppThemeState>) {
                 )
             }
             Button(
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.margin_twice)),
                 onClick = {
-                    appThemeState.value = appThemeState.value.copy(pallet = ColorPallet.ORANGE)
+                    // appThemeState.value = appThemeState.value.copy(pallet = ColorPallet.ORANGE)
                 }
             ) {
                 Text(
@@ -143,7 +144,7 @@ private fun BindThemeSettingMenu(
 @Composable
 private fun PreviewSettingContent() {
     val appThemeState = mutableStateOf(AppThemeState())
-    AppTheme(appThemeState.value) {
+    AppMaterialTheme(appThemeState.value) {
         SettingContent(appThemeState)
     }
 }
