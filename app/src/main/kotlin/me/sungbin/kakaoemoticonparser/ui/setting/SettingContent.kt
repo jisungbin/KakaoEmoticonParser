@@ -1,5 +1,6 @@
 package me.sungbin.kakaoemoticonparser.ui.setting
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
@@ -34,6 +36,7 @@ import me.sungbin.kakaoemoticonparser.theme.room.ThemeDatabase
 import me.sungbin.kakaoemoticonparser.theme.room.ThemeEntity
 import me.sungbin.kakaoemoticonparser.theme.room.TypeConvertUtil
 import me.sungbin.kakaoemoticonparser.theme.typography
+import me.sungbin.kakaoemoticonparser.util.parseColor
 
 @Composable
 fun SettingContent(appThemeState: MutableState<AppThemeState>) {
@@ -115,13 +118,15 @@ private fun BindThemeSettingMenu(
     val items = listOf("보라색", "초록색", "주황색", "파란색")
     DropdownMenu(
         expanded = showMenu.value,
-        onDismissRequest = { showMenu.value = false }
+        onDismissRequest = { showMenu.value = false },
+        modifier = Modifier.animateContentSize()
     ) {
         items.forEachIndexed { index, title ->
+            Logger.w(TypeConvertUtil.intToPallet(index))
+            val newAppThemeState =
+                appThemeState.value.copy(pallet = TypeConvertUtil.intToPallet(index))
             DropdownMenuItem(
                 onClick = {
-                    val newAppThemeState =
-                        appThemeState.value.copy(pallet = TypeConvertUtil.intToPallet(index))
                     appThemeState.value = newAppThemeState
                     showMenu.value = false
                     coroutineScope.launch {
@@ -134,7 +139,10 @@ private fun BindThemeSettingMenu(
                     }
                 }
             ) {
-                Text(text = title)
+                Text(
+                    text = title,
+                    color = newAppThemeState.parseColor()
+                )
             }
         }
     }
