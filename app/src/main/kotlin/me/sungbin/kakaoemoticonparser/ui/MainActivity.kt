@@ -10,8 +10,10 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Search
@@ -26,11 +28,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import com.mahfa.dnswitch.DayNightSwitch
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.SystemUiController
+import me.sungbin.kakaoemoticonparser.theme.typography
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContent
 import me.sungbin.kakaoemoticonparser.ui.setting.SettingContent
 import me.sungbin.kakaoemoticonparser.ui.test.TestContent
@@ -60,7 +65,7 @@ class MainActivity : ComponentActivity() {
         systemUiController: SystemUiController?,
         content: @Composable () -> Unit
     ) {
-        systemUiController?.setStatusBarColor(appThemeState.parseColor(), appThemeState.darkTheme)
+        systemUiController?.setStatusBarColor(appThemeState.parseColor(), appThemeState.isDarkMode)
         AppTheme(appThemeState) {
             content()
         }
@@ -70,15 +75,43 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun MainContent(appThemeState: MutableState<AppThemeState>) {
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
-
-        Column {
-            NavigationFragmentContent(
-                appThemeState = appThemeState,
-                contentType = navigationState.value,
-                modifier = Modifier.weight(1f)
-            )
-            NavigationBarContent(contentType = navigationState)
-        }
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Column {
+                            Text(
+                                text = stringResource(R.string.app_name),
+                                style = typography.body1
+                            )
+                            Text(
+                                text = stringResource(R.string.copyright),
+                                style = typography.caption
+                            )
+                        }
+                    },
+                    elevation = dimensionResource(R.dimen.margin_half),
+                    actions = {
+                        DayNightSwitch(LocalContext.current).apply {
+                            setIsNight(appThemeState.value.isDarkMode, true)
+                            setListener { isNight ->
+                                appThemeState.value = appThemeState.value.copy(isDarkMode = isNight)
+                            }
+                        }
+                    }
+                )
+            },
+            content = {
+                Column {
+                    NavigationFragmentContent(
+                        appThemeState = appThemeState,
+                        contentType = navigationState.value,
+                        modifier = Modifier.weight(1f)
+                    )
+                    NavigationBarContent(contentType = navigationState)
+                }
+            }
+        )
     }
 
     @ExperimentalComposeUiApi

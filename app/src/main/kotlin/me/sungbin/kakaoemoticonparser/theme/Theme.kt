@@ -119,10 +119,10 @@ fun AppTheme(
 ) {
     val colors = appThemeState.run {
         when (pallet) {
-            ColorPallet.GREEN -> if (darkTheme) DarkGreenColorPalette else LightGreenColorPalette
-            ColorPallet.PURPLE -> if (darkTheme) DarkPurpleColorPalette else LightPurpleColorPalette
-            ColorPallet.ORANGE -> if (darkTheme) DarkOrangeColorPalette else LightOrangeColorPalette
-            ColorPallet.BLUE -> if (darkTheme) DarkBlueColorPalette else LightBlueColorPalette
+            ColorPallet.GREEN -> if (isDarkMode) DarkGreenColorPalette else LightGreenColorPalette
+            ColorPallet.PURPLE -> if (isDarkMode) DarkPurpleColorPalette else LightPurpleColorPalette
+            ColorPallet.ORANGE -> if (isDarkMode) DarkOrangeColorPalette else LightOrangeColorPalette
+            ColorPallet.BLUE -> if (isDarkMode) DarkBlueColorPalette else LightBlueColorPalette
         }
     }
 

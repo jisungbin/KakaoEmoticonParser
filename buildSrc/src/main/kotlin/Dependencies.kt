@@ -6,7 +6,7 @@ object Application {
     const val compileSdk = 30
     const val versionCode = 20
     const val jvmTarget = "1.8"
-    const val versionName = "제발코로나종식되게해주세요_1"
+    const val versionName = "제발코로나종식되게해주세요_2"
 
     val targetCompat = JavaVersion.VERSION_1_8
     val sourceCompat = JavaVersion.VERSION_1_8
@@ -15,7 +15,7 @@ object Application {
 object Versions {
     object Essential {
         const val Kotlin = "1.4.31"
-        const val Gradle = "7.0.0-alpha09"
+        const val Gradle = "7.0.0-alpha10"
         const val CoreKtx = "1.3.2"
     }
 
@@ -24,6 +24,7 @@ object Versions {
     }
 
     object Ui {
+        const val DayNightSwitch = "1.4"
         const val Lottie = "3.6.1"
         const val LottieCompose = "1.0.0-alpha07-SNAPSHOT"
         const val Glide = "0.6.2"
@@ -81,6 +82,7 @@ object Dependencies {
     )
 
     val ui = listOf(
+        "com.github.Mahfa:DayNightSwitch:${Versions.Ui.DayNightSwitch}",
         "com.airbnb.android:lottie:${Versions.Ui.Lottie}",
         "com.google.accompanist:accompanist-glide:${Versions.Ui.Glide}",
         "com.airbnb.android:lottie-compose:${Versions.Ui.LottieCompose}",

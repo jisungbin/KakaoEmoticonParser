@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 class ThemeEntity(
     @PrimaryKey
     var key: Int = 999,
-    var isDarkTheme: Boolean,
-    var colorPallet: Int
+    var isDarkTheme: Boolean? = null,
+    var colorPallet: Int? = null
 )

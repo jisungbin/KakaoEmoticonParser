@@ -20,6 +20,7 @@ import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -75,7 +76,8 @@ class EmoticonContent {
 
     @Composable
     fun Bind(emoticon: ContentItem) {
-        val emoticonDb = EmoticonDatabase.instance(LocalContext.current)
+        val context = LocalContext.current
+        val emoticonDb = remember { EmoticonDatabase.instance(context).dao() }
         val coroutineScope = rememberCoroutineScope()
         Card(
             shape = shapes.medium,
@@ -137,7 +139,7 @@ class EmoticonContent {
                     ) {
                         var isFavorite by rememberSaveable { mutableStateOf(false) }
                         coroutineScope.launch {
-                            val favoriteEmoticon = emoticonDb.dao().getFavoriteEmoticon(emoticon.title)
+                            val favoriteEmoticon = emoticonDb.getFavoriteEmoticon(emoticon.title)
                             isFavorite = favoriteEmoticon != null
                         }
                         Icon(
@@ -160,9 +162,9 @@ class EmoticonContent {
                                     coroutineScope.launch {
                                         val entity = EmoticonEntity(title = emoticon.title)
                                         if (!isFavorite) {
-                                            emoticonDb.dao().insert(entity)
+                                            emoticonDb.insert(entity)
                                         } else {
-                                            emoticonDb.dao().delete(entity)
+                                            emoticonDb.delete(entity)
                                         }
                                         isFavorite = !isFavorite
                                     }

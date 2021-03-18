@@ -29,9 +29,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -93,7 +91,6 @@ class SearchContent {
     @Inject
     lateinit var client: Retrofit
 
-    lateinit var context: Context
     lateinit var alert: AlertDialog
     private val emoticonContent by lazy { EmoticonContent() }
 
@@ -108,30 +105,8 @@ class SearchContent {
 
     @Composable
     fun Bind(appThemeState: AppThemeState) {
-        context = LocalContext.current
         val searchState = rememberSaveable { mutableStateOf(SearchContentState.HOME) }
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Column {
-                            Text(
-                                text = stringResource(R.string.app_name),
-                                style = typography.body1
-                            )
-                            Text(
-                                text = stringResource(R.string.copyright),
-                                style = typography.caption
-                            )
-                        }
-                    },
-                    elevation = dimensionResource(R.dimen.margin_half)
-                )
-            },
-            content = {
-                BindSearchContent(appThemeState, searchState)
-            }
-        )
+        BindSearchContent(appThemeState, searchState)
     }
 
     @Composable
@@ -180,7 +155,7 @@ class SearchContent {
                 maxLines = 1,
                 singleLine = true,
                 keyboardActions = KeyboardActions {
-                    searchEmoticon(searchText.text, searchState)
+                    searchEmoticon(context, searchText.text, searchState)
                     // todo: option - clear `searchText` after searching.
                     keyboardController?.hideSoftwareKeyboard()
                 },
@@ -303,6 +278,7 @@ class SearchContent {
         coroutineScope: CoroutineScope,
         emoticonSheetState: MutableState<EmoticonSheetState>
     ) {
+        val context = LocalContext.current
         val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.downloading) }
         val animationState =
             rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
@@ -448,9 +424,13 @@ class SearchContent {
         }
     }
 
-    private fun searchEmoticon(query: String, searchState: MutableState<SearchContentState>) {
+    private fun searchEmoticon(
+        context: Context,
+        query: String,
+        searchState: MutableState<SearchContentState>
+    ) {
         client.create(EmoticonInterface::class.java).run {
-            showLoadingDialog() // todo: I can`t use `ComposableFunction` at this scope.
+            showLoadingDialog(context) // todo: I can`t use `ComposableFunction` at this scope.
             emoticonItems.clear()
             getSearchData(query)
                 .subscribeOn(Schedulers.io())
@@ -474,7 +454,7 @@ class SearchContent {
         }
     }
 
-    private fun showLoadingDialog() {
+    private fun showLoadingDialog(context: Context) {
         val dialog = AlertDialog.Builder(context)
         dialog.setView(
             LottieAnimationView(context).apply {

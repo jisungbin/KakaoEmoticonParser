@@ -9,7 +9,7 @@ import androidx.room.Query
 interface ThemeDao {
 
     @Query("SELECT * FROM ThemeEntity")
-    suspend fun getTheme(): ThemeEntity
+    suspend fun getTheme(): ThemeEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(theme: ThemeEntity)

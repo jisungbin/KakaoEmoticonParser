@@ -8,15 +8,15 @@ import me.sungbin.kakaoemoticonparser.theme.room.ThemeDatabase
 import me.sungbin.kakaoemoticonparser.theme.room.TypeConvertUtil
 
 data class AppThemeState(
-    var darkTheme: Boolean = false,
+    var isDarkMode: Boolean = false,
     var pallet: ColorPallet = ColorPallet.BLUE
 ) {
     fun init(context: Context): AppThemeState {
         val themeDatabase = ThemeDatabase.instance(context)
         CoroutineScope(Dispatchers.IO).launch {
             val themeEntity = themeDatabase.dao().getTheme()
-            darkTheme = themeEntity.isDarkTheme
-            pallet = TypeConvertUtil.intToPallet(themeEntity.colorPallet)
+            isDarkMode = themeEntity?.isDarkTheme ?: false
+            pallet = TypeConvertUtil.intToPallet(themeEntity?.colorPallet ?: 3) // BLUE
         }
         return this
     }
