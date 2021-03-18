@@ -25,12 +25,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.SystemUiController
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContent
+import me.sungbin.kakaoemoticonparser.ui.setting.SettingContent
 import me.sungbin.kakaoemoticonparser.ui.test.TestContent
 import me.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
 import me.sungbin.kakaoemoticonparser.util.parseColor
@@ -43,10 +45,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            val context = LocalContext.current
             val systemUiController = remember { SystemUiController(window) }
-            val appThemeState = remember { mutableStateOf(AppThemeState()) }
+            val appThemeState = remember { mutableStateOf(AppThemeState().init(context)) }
             BindView(appThemeState.value, systemUiController) {
-                MainContent(appThemeState.value)
+                MainContent(appThemeState)
             }
         }
     }
@@ -65,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
     @ExperimentalComposeUiApi
     @Composable
-    private fun MainContent(appThemeState: AppThemeState) {
+    private fun MainContent(appThemeState: MutableState<AppThemeState>) {
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
 
         Column {
@@ -81,7 +84,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalComposeUiApi
     @Composable
     private fun NavigationFragmentContent(
-        appThemeState: AppThemeState,
+        appThemeState: MutableState<AppThemeState>,
         modifier: Modifier = Modifier,
         contentType: NavigationType
     ) {
@@ -89,7 +92,8 @@ class MainActivity : ComponentActivity() {
             Crossfade(contentType) { type ->
                 Surface(color = MaterialTheme.colors.background) {
                     when (type) {
-                        NavigationType.SEARCH -> SearchContent().Bind(appThemeState)
+                        NavigationType.SEARCH -> SearchContent().Bind(appThemeState.value)
+                        NavigationType.SETTING -> SettingContent(appThemeState)
                         else -> TestContent()
                     }
                 }

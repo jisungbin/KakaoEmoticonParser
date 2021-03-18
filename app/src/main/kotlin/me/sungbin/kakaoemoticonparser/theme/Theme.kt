@@ -109,6 +109,7 @@ private val LightOrangeColorPalette = lightColors(
 
 enum class ColorPallet {
     PURPLE, GREEN, ORANGE, BLUE
+    // 0, 1, 2, 3
 }
 
 @Composable

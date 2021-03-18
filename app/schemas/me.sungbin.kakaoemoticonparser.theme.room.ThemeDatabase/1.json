@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0853fb319f64aed46753cdfa9d925d85",
+    "entities": [
+      {
+        "tableName": "ThemeDatabase",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mDatabase` TEXT, `mCallbacks` TEXT, `mQueryExecutor` TEXT, `mTransactionExecutor` TEXT, `mOpenHelper` TEXT, `mInvalidationTracker` TEXT, `mAllowMainThreadQueries` INTEGER NOT NULL, `mWriteAheadLoggingEnabled` INTEGER NOT NULL, `mCloseLock` TEXT, `mAutoCloser` TEXT, `mSuspendingTransactionId` TEXT, `mBackingFieldMap` TEXT, `mTypeConverters` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "mDatabase",
+            "columnName": "mDatabase",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCallbacks",
+            "columnName": "mCallbacks",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mQueryExecutor",
+            "columnName": "mQueryExecutor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mTransactionExecutor",
+            "columnName": "mTransactionExecutor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOpenHelper",
+            "columnName": "mOpenHelper",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mInvalidationTracker",
+            "columnName": "mInvalidationTracker",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAllowMainThreadQueries",
+            "columnName": "mAllowMainThreadQueries",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mWriteAheadLoggingEnabled",
+            "columnName": "mWriteAheadLoggingEnabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCloseLock",
+            "columnName": "mCloseLock",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAutoCloser",
+            "columnName": "mAutoCloser",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mSuspendingTransactionId",
+            "columnName": "mSuspendingTransactionId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mBackingFieldMap",
+            "columnName": "mBackingFieldMap",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mTypeConverters",
+            "columnName": "mTypeConverters",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0853fb319f64aed46753cdfa9d925d85')"
+    ]
+  }
+}
