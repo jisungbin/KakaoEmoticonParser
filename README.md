@@ -62,6 +62,7 @@
 # 알려진 버그
 1. - [ ] 가끔씩 `BottomSheet`가 열리지 않음
 2. - [ ] 각 content 마다 매번 `instance` 초기화
+3. - [ ] 가끔씩 content 로드 오래걸림
 
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
