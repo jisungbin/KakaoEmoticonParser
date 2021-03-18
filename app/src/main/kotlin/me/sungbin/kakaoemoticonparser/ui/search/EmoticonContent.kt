@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -131,12 +132,14 @@ class EmoticonContent {
                         var isFavorite by rememberSaveable { mutableStateOf(false) }
                         Icon(
                             imageVector = Icons.Outlined.MusicNote,
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = if (emoticon.isSound) Color.Black else Color.Gray
                         )
                         Icon(
                             imageVector = Icons.Outlined.Fullscreen,
                             contentDescription = null,
-                            modifier = Modifier.padding(start = dimensionResource(R.dimen.margin_half))
+                            modifier = Modifier.padding(start = dimensionResource(R.dimen.margin_half)),
+                            tint = if (emoticon.isBigEmo) Color.Black else Color.Gray
                         )
                         Icon(
                             imageVector = if (!isFavorite) Icons.Outlined.FavoriteBorder else Icons.Outlined.Favorite,
