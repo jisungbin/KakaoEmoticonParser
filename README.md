@@ -52,6 +52,10 @@
 7. Kotlin-DSL Gradle
 8. Clean-Code 100% (All `A`)
 
+# 알려진 버그
+1. - [ ] 가끔씩 `BottomSheet`가 열리지 않음.
+2. - [ ] 각 content 매번 `instance` 초기화
+
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
 2. [KakaoEmoticonDownloader](https://github.com/DarkTornado/KakaoEmoticonDownloader)
