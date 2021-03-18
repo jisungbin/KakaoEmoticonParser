@@ -70,4 +70,7 @@
 # 라이선스
 `카카오톡 이모티콘 추출기`는 [**GPL 3.0**](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/LICENSE) 라이선스를 따릅니다.
 
+# 오픈소스 라이선스
+[[opensource-license]](https://github.com/jisungbin/KakaoEmoticonParser/blob/master/opensource-license.md)
+
 # Happy Coding :)
