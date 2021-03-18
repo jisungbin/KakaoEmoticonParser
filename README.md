@@ -65,6 +65,12 @@
 3. - [ ] 가끔씩 content 로드 오래걸림
 4. - [ ] 테마 변경 부분 아주 많은 버그
 
+# TODO
+1. - [ ] 미완성 탭(즐겨찾기) 만들기
+2. - [ ] 코드 속 TODO 부분 다 만들기
+3. - [ ] 테마 설정 팝업메뉴 위치 고치기
+4. - [ ] 알려진 버그 다 고치기
+
 # Base Reference
 1. [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)
 2. [KakaoEmoticonDownloader](https://github.com/DarkTornado/KakaoEmoticonDownloader)
