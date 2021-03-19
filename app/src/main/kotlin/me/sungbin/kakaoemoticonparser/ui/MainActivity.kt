@@ -1,5 +1,6 @@
 package me.sungbin.kakaoemoticonparser.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.mahfa.dnswitch.DayNightSwitch
+import me.sungbin.androidutils.util.DialogUtil
 import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
@@ -103,6 +105,7 @@ class MainActivity : ComponentActivity() {
                             DayNightSwitch(context).apply {
                                 setIsNight(appThemeState.value.isDarkMode, true)
                                 setListener { isNight ->
+                                    DialogUtil.showOnce(context as Activity, "")
                                     appThemeState.value =
                                         appThemeState.value.copy(isDarkMode = isNight)
                                 }

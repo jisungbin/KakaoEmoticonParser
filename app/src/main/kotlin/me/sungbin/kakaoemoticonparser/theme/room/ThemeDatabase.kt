@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ThemeEntity::class], version = 3)
+@Database(entities = [ThemeEntity::class], version = 1)
 abstract class ThemeDatabase : RoomDatabase() {
     abstract fun dao(): ThemeDao
 
