@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             val systemUiController = remember { SystemUiController(window) }
             val appThemeState = remember { mutableStateOf(AppThemeState().init(context)) }
-            val errorMessage = mutableStateOf("")
+            val errorMessage = remember { mutableStateOf("") }
             val searchState = rememberSaveable { mutableStateOf(SearchContentState.HOME) }
 
             BindView(appThemeState.value, systemUiController) {

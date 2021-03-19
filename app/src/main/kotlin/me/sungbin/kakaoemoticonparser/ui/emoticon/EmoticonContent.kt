@@ -54,10 +54,10 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.sungbin.androidutils.util.Logger
 import me.sungbin.androidutils.util.MediaUtil
 import me.sungbin.androidutils.util.StorageUtil
 import me.sungbin.kakaoemoticonparser.R
@@ -88,8 +88,6 @@ class EmoticonContent {
             .inject(this)
     }
 
-    private lateinit var coroutineScope: CoroutineScope
-
     @Composable
     fun BindListContent(
         emoticons: List<ContentItem>,
@@ -97,6 +95,8 @@ class EmoticonContent {
         searchState: MutableState<SearchContentState>,
         errorMessage: MutableState<String>
     ) {
+        Logger.w("Items", emoticons)
+
         val sheetType = remember { mutableStateOf(EmoticonSheetState.DETAIL) }
         val clickedEmoticon = remember { mutableStateOf<Result?>(null) }
         val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
@@ -169,8 +169,8 @@ class EmoticonContent {
         clickedEmoticon: MutableState<Result?>
     ) {
         val context = LocalContext.current
-        val emoticonDb = remember { EmoticonDatabase.instance(context).dao() }
-        coroutineScope = rememberCoroutineScope()
+        val coroutineScope = rememberCoroutineScope()
+        val emoticonDatabase = remember { EmoticonDatabase.instance(context).dao() }
         Card(
             shape = shapes.medium,
             modifier = Modifier
@@ -234,7 +234,7 @@ class EmoticonContent {
                     ) {
                         var isFavorite by rememberSaveable { mutableStateOf(false) }
                         coroutineScope.launch {
-                            val favoriteEmoticon = emoticonDb.getFavoriteEmoticon(emoticon.title)
+                            val favoriteEmoticon = emoticonDatabase.getFavoriteEmoticon(emoticon.title)
                             isFavorite = favoriteEmoticon != null
                         }
                         Icon(
@@ -262,9 +262,9 @@ class EmoticonContent {
                                             isSound = emoticon.isSound,
                                         )
                                         if (!isFavorite) {
-                                            emoticonDb.insert(entity)
+                                            emoticonDatabase.insert(entity)
                                         } else {
-                                            emoticonDb.delete(entity)
+                                            emoticonDatabase.delete(entity)
                                         }
                                         isFavorite = !isFavorite
                                     }
@@ -314,6 +314,7 @@ class EmoticonContent {
         emoticonSheetState: MutableState<EmoticonSheetState>
     ) {
         val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
         val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.downloading) }
         val animationState =
             rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
@@ -368,6 +369,7 @@ class EmoticonContent {
         bottomSheetScaffoldState: BottomSheetScaffoldState,
         emoticonSheetState: MutableState<EmoticonSheetState>
     ) {
+        val coroutineScope = rememberCoroutineScope()
         val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.download_done) }
         val animationState =
             rememberLottieAnimationState(autoPlay = true)

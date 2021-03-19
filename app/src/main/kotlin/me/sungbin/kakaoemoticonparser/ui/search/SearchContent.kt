@@ -24,7 +24,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -43,6 +42,7 @@ import com.airbnb.lottie.compose.LottieAnimationSpec
 import com.airbnb.lottie.compose.rememberLottieAnimationState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 import me.sungbin.androidutils.util.PermissionUtil
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.emoticon.DaggerEmoticonComponent
@@ -55,7 +55,6 @@ import me.sungbin.kakaoemoticonparser.ui.dialog.showLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.emoticon.EmoticonContent
 import me.sungbin.kakaoemoticonparser.util.parseColor
 import retrofit2.Retrofit
-import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -93,7 +92,7 @@ class SearchContent {
     ) {
         val context = LocalContext.current
         val keyboardController = LocalSoftwareKeyboardController.current
-        val emoticonItems = mutableListOf<ContentItem>()
+        val emoticonItems = remember { mutableListOf<ContentItem>() }
         var searchText by remember { mutableStateOf(TextFieldValue()) }
 
         PermissionUtil.request(
@@ -142,7 +141,7 @@ class SearchContent {
             Crossfade(searchState.value) { state ->
                 when (state) {
                     SearchContentState.RESULT -> EmoticonContent.BindListContent(
-                        emoticons = emoticonItems,
+                        emoticons = emoticonItems.toList(),
                         appThemeState = appThemeState,
                         searchState = searchState,
                         errorMessage = errorMessage

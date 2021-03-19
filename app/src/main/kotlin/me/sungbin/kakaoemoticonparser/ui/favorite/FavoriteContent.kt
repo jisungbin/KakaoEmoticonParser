@@ -13,6 +13,22 @@ import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.ui.emoticon.EmoticonContent
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContentState
 
+interface OnFavoriteLoadDone {
+    @Composable
+    fun OnLoadDone(emoticons: List<ContentItem>)
+}
+
+private lateinit var listener: OnFavoriteLoadDone
+
+private fun setFavoriteOnLoadDoneListener(action: @Composable List<ContentItem>.() -> Unit) {
+    listener = object : OnFavoriteLoadDone {
+        @Composable
+        override fun OnLoadDone(emoticons: List<ContentItem>) {
+            action(emoticons)
+        }
+    }
+}
+
 @ExperimentalMaterialApi
 @Composable
 fun FavoriteContent(
@@ -21,8 +37,17 @@ fun FavoriteContent(
     errorMessage: MutableState<String>
 ) {
     val context = LocalContext.current
-    val emoticons = mutableListOf<ContentItem>()
+    setFavoriteOnLoadDoneListener {
+        EmoticonContent().BindListContent(
+            emoticons = toList(),
+            appThemeState = appThemeState,
+            searchState = searchState,
+            errorMessage = errorMessage
+        )
+    }
+
     CoroutineScope(Dispatchers.IO).launch {
+        val emoticons = mutableListOf<ContentItem>()
         EmoticonDatabase.instance(context).dao().getAllFavoriteEmoticon().forEach {
             val contentItem = ContentItem(
                 title = it.title,
@@ -40,11 +65,6 @@ fun FavoriteContent(
             )
             emoticons.add(contentItem)
         }
+        listener.OnLoadDone(emoticons)
     }
-    EmoticonContent().BindListContent(
-        emoticons = emoticons.toList(),
-        appThemeState = appThemeState,
-        searchState = searchState,
-        errorMessage = errorMessage
-    )
 }
