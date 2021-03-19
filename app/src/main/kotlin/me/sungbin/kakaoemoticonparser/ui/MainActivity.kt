@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
                 Column {
                     NavigationFragmentContent(
                         appThemeState = appThemeState,
-                        contentType = navigationState.value,
+                        contentType = navigationState,
                         modifier = Modifier.weight(1f),
                         errorMessage = errorMessage,
                         searchState = searchState,
@@ -149,23 +149,25 @@ class MainActivity : ComponentActivity() {
     private fun NavigationFragmentContent(
         appThemeState: MutableState<AppThemeState>,
         modifier: Modifier = Modifier,
-        contentType: NavigationType,
+        contentType: MutableState<NavigationType>,
         errorMessage: MutableState<String>,
         searchState: MutableState<SearchContentState>
     ) {
         Column(modifier = modifier) {
-            Crossfade(contentType) { type ->
+            Crossfade(contentType.value) { type ->
                 Surface(color = MaterialTheme.colors.background) {
                     when (type) {
                         NavigationType.SEARCH -> SearchContent().Bind(
-                            appThemeState.value,
-                            errorMessage,
-                            searchState
+                            appThemeState = appThemeState.value,
+                            errorMessage = errorMessage,
+                            searchState = searchState,
+                            contentType = contentType
                         )
                         NavigationType.FAVORITE -> FavoriteContent(
                             appThemeState = appThemeState.value,
                             searchState = searchState,
-                            errorMessage = errorMessage
+                            errorMessage = errorMessage,
+                            contentType = contentType
                         )
                         NavigationType.SETTING -> SettingContent(appThemeState)
                     }

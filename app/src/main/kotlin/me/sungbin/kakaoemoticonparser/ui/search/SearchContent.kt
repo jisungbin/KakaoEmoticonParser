@@ -50,6 +50,7 @@ import me.sungbin.kakaoemoticonparser.emoticon.EmoticonInterface
 import me.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.typography
+import me.sungbin.kakaoemoticonparser.ui.NavigationType
 import me.sungbin.kakaoemoticonparser.ui.dialog.closeLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.dialog.showLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.emoticon.EmoticonContent
@@ -63,11 +64,6 @@ class SearchContent {
     @Inject
     lateinit var client: Retrofit
 
-    @Suppress("PrivatePropertyName")
-    private val EmoticonContent by lazy { EmoticonContent() }
-    private lateinit var errorMessage: MutableState<String>
-    private lateinit var searchState: MutableState<SearchContentState>
-
     init {
         DaggerEmoticonComponent.builder()
             .build()
@@ -78,17 +74,18 @@ class SearchContent {
     fun Bind(
         appThemeState: AppThemeState,
         errorMessage: MutableState<String>,
-        searchState: MutableState<SearchContentState>
+        searchState: MutableState<SearchContentState>,
+        contentType: MutableState<NavigationType>
     ) {
-        this.errorMessage = errorMessage
-        this.searchState = searchState
-        BindSearchContent(appThemeState, searchState)
+        BindSearchContent(appThemeState, errorMessage, searchState, contentType)
     }
 
     @Composable
     private fun BindSearchContent(
         appThemeState: AppThemeState,
-        searchState: MutableState<SearchContentState>
+        errorMessage: MutableState<String>,
+        searchState: MutableState<SearchContentState>,
+        contentType: MutableState<NavigationType>
     ) {
         val context = LocalContext.current
         val keyboardController = LocalSoftwareKeyboardController.current
@@ -132,7 +129,7 @@ class SearchContent {
                 maxLines = 1,
                 singleLine = true,
                 keyboardActions = KeyboardActions {
-                    searchEmoticon(context, searchText.text, searchState, emoticonItems)
+                    searchEmoticon(context, searchText.text, searchState, errorMessage, emoticonItems)
                     // todo: option - clear `searchText` after searching.
                     keyboardController?.hideSoftwareKeyboard()
                 },
@@ -140,13 +137,18 @@ class SearchContent {
             )
             Crossfade(searchState.value) { state ->
                 when (state) {
-                    SearchContentState.RESULT -> EmoticonContent.BindListContent(
+                    SearchContentState.RESULT -> EmoticonContent().BindListContent(
                         emoticons = emoticonItems.toList(),
                         appThemeState = appThemeState,
                         searchState = searchState,
-                        errorMessage = errorMessage
+                        errorMessage = errorMessage,
+                        contentType = contentType
                     )
-                    else -> SearchOtherContent(appThemeState, state)
+                    else -> SearchOtherContent(
+                        appThemeState = appThemeState,
+                        errorMessage = errorMessage,
+                        searchState = searchState.value
+                    )
                 }
             }
         }
@@ -155,6 +157,7 @@ class SearchContent {
     @Composable
     private fun SearchOtherContent(
         appThemeState: AppThemeState,
+        errorMessage: MutableState<String>,
         searchState: SearchContentState
     ) {
         val animationSpec = when (searchState) {
@@ -211,6 +214,7 @@ class SearchContent {
         context: Context,
         query: String,
         searchState: MutableState<SearchContentState>,
+        errorMessage: MutableState<String>,
         emoticonItems: MutableList<ContentItem>
     ) {
         client.create(EmoticonInterface::class.java).run {

@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import me.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import me.sungbin.kakaoemoticonparser.emoticon.room.EmoticonDatabase
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
+import me.sungbin.kakaoemoticonparser.ui.NavigationType
 import me.sungbin.kakaoemoticonparser.ui.dialog.closeLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.dialog.showLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.emoticon.EmoticonContent
@@ -22,7 +23,8 @@ import me.sungbin.kakaoemoticonparser.ui.search.SearchContentState
 fun FavoriteContent(
     appThemeState: AppThemeState,
     searchState: MutableState<SearchContentState>,
-    errorMessage: MutableState<String>
+    errorMessage: MutableState<String>,
+    contentType: MutableState<NavigationType>
 ) {
     val context = LocalContext.current
     val isLoadingDone = remember { mutableStateOf(false) }
@@ -42,7 +44,7 @@ fun FavoriteContent(
                 isNew = false,
                 isOnSale = false,
                 titleDetailUrl = "",
-                titleUrl = ""
+                titleUrl = it.titleUrl
             )
             emoticons.add(contentItem)
         }
@@ -55,7 +57,8 @@ fun FavoriteContent(
                 emoticons = emoticons.toList(),
                 appThemeState = appThemeState,
                 searchState = searchState,
-                errorMessage = errorMessage
+                errorMessage = errorMessage,
+                contentType = contentType
             )
         } else {
             showLoadingDialog(context)

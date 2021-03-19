@@ -58,6 +58,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.sungbin.androidutils.util.Logger
 import me.sungbin.androidutils.util.MediaUtil
 import me.sungbin.androidutils.util.StorageUtil
 import me.sungbin.kakaoemoticonparser.R
@@ -70,6 +71,7 @@ import me.sungbin.kakaoemoticonparser.emoticon.room.EmoticonEntity
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.shapes
 import me.sungbin.kakaoemoticonparser.theme.typography
+import me.sungbin.kakaoemoticonparser.ui.NavigationType
 import me.sungbin.kakaoemoticonparser.ui.dialog.closeLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.dialog.showLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContentState
@@ -93,7 +95,8 @@ class EmoticonContent {
         emoticons: List<ContentItem>,
         appThemeState: AppThemeState,
         searchState: MutableState<SearchContentState>,
-        errorMessage: MutableState<String>
+        errorMessage: MutableState<String>,
+        contentType: MutableState<NavigationType>
     ) {
         val sheetType = remember { mutableStateOf(EmoticonSheetState.DETAIL) }
         val clickedEmoticon = remember { mutableStateOf<Result?>(null) }
@@ -151,7 +154,8 @@ class EmoticonContent {
                                 errorMessage,
                                 emoticon,
                                 bottomSheetScaffoldState,
-                                clickedEmoticon
+                                clickedEmoticon,
+                                contentType
                             )
                         }
                     }
@@ -166,7 +170,8 @@ class EmoticonContent {
         errorMessage: MutableState<String>,
         emoticon: ContentItem,
         bottomSheetScaffoldState: BottomSheetScaffoldState,
-        clickedEmoticon: MutableState<Result?>
+        clickedEmoticon: MutableState<Result?>,
+        contentType: MutableState<NavigationType>
     ) {
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
@@ -192,6 +197,7 @@ class EmoticonContent {
                                         }
                                     },
                                     {
+                                        contentType.value = NavigationType.SEARCH
                                         searchState.value = SearchContentState.ERROR
                                         errorMessage.value = it.message.toString()
                                         closeLoadingDialog()
@@ -250,25 +256,28 @@ class EmoticonContent {
                             tint = if (emoticon.isBigEmo) Color.Black else Color.Gray
                         )
                         Icon(
-                            imageVector = if (!isFavorite) Icons.Outlined.FavoriteBorder else Icons.Outlined.Favorite,
+                            imageVector = if (isFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                            tint = if (isFavorite) Color.Black else Color.Gray,
                             contentDescription = null,
                             modifier = Modifier
                                 .padding(start = dimensionResource(R.dimen.margin_half))
                                 .clickable {
+                                    val entity = EmoticonEntity(
+                                        title = emoticon.title,
+                                        titleUrl = emoticon.titleUrl,
+                                        imageUrl = emoticon.titleImageUrl,
+                                        isBigEmo = emoticon.isBigEmo,
+                                        isSound = emoticon.isSound,
+                                    )
                                     coroutineScope.launch {
-                                        val entity = EmoticonEntity(
-                                            title = emoticon.title,
-                                            imageUrl = emoticon.titleImageUrl,
-                                            isBigEmo = emoticon.isBigEmo,
-                                            isSound = emoticon.isSound,
-                                        )
                                         if (!isFavorite) {
                                             emoticonDatabase.insert(entity)
                                         } else {
                                             emoticonDatabase.delete(entity)
                                         }
-                                        isFavorite = !isFavorite
                                     }
+                                    isFavorite = !isFavorite
+                                    Logger.i(emoticon.title, isFavorite)
                                 }
                         )
                     }
