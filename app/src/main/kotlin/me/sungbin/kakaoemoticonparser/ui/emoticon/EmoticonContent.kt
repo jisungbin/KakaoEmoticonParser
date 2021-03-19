@@ -57,7 +57,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.sungbin.androidutils.util.Logger
 import me.sungbin.androidutils.util.MediaUtil
 import me.sungbin.androidutils.util.StorageUtil
 import me.sungbin.kakaoemoticonparser.R
@@ -95,8 +94,6 @@ class EmoticonContent {
         searchState: MutableState<SearchContentState>,
         errorMessage: MutableState<String>
     ) {
-        Logger.w("Items", emoticons)
-
         val sheetType = remember { mutableStateOf(EmoticonSheetState.DETAIL) }
         val clickedEmoticon = remember { mutableStateOf<Result?>(null) }
         val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
