@@ -7,5 +7,8 @@ import androidx.room.PrimaryKey
 class EmoticonEntity(
     @PrimaryKey(autoGenerate = true)
     val key: Int = 0,
-    val title: String = ""
+    val title: String = "",
+    val imageUrl: String = "",
+    val isBigEmo: Boolean = false,
+    val isSound: Boolean = false
 )

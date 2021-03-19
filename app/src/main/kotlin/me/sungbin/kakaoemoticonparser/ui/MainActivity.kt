@@ -37,22 +37,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.mahfa.dnswitch.DayNightSwitch
 import me.sungbin.androidutils.util.DialogUtil
-import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
 import me.sungbin.kakaoemoticonparser.theme.SystemUiController
 import me.sungbin.kakaoemoticonparser.theme.typography
+import me.sungbin.kakaoemoticonparser.ui.favorite.FavoriteContent
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContent
+import me.sungbin.kakaoemoticonparser.ui.search.SearchContentState
 import me.sungbin.kakaoemoticonparser.ui.setting.SettingContent
-import me.sungbin.kakaoemoticonparser.ui.test.TestContent
 import me.sungbin.kakaoemoticonparser.ui.widget.RotateIcon
 import me.sungbin.kakaoemoticonparser.util.parseColor
 
 @ExperimentalMaterialApi
+@ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
 
-    @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,9 +60,11 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             val systemUiController = remember { SystemUiController(window) }
             val appThemeState = remember { mutableStateOf(AppThemeState().init(context)) }
-            Logger.w(appThemeState.value.isDarkMode.toString(), appThemeState.value.pallet)
+            val errorMessage = mutableStateOf("")
+            val searchState = rememberSaveable { mutableStateOf(SearchContentState.HOME) }
+
             BindView(appThemeState.value, systemUiController) {
-                MainContent(appThemeState)
+                MainContent(appThemeState, errorMessage, searchState)
             }
         }
     }
@@ -79,9 +81,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @ExperimentalComposeUiApi
     @Composable
-    private fun MainContent(appThemeState: MutableState<AppThemeState>) {
+    private fun MainContent(
+        appThemeState: MutableState<AppThemeState>,
+        errorMessage: MutableState<String>,
+        searchState: MutableState<SearchContentState>
+    ) {
         val context = LocalContext.current
         val navigationState = rememberSaveable { mutableStateOf(NavigationType.SEARCH) }
         Scaffold(
@@ -105,7 +110,12 @@ class MainActivity : ComponentActivity() {
                             DayNightSwitch(context).apply {
                                 setIsNight(appThemeState.value.isDarkMode, true)
                                 setListener { isNight ->
-                                    DialogUtil.showOnce(context as Activity, "")
+                                    DialogUtil.showOnce(
+                                        context as Activity,
+                                        context.getString(R.string.experiment_function_label),
+                                        context.getString(R.string.experiment_function_description),
+                                        "dark-theme-change"
+                                    )
                                     appThemeState.value =
                                         appThemeState.value.copy(isDarkMode = isNight)
                                 }
@@ -125,7 +135,9 @@ class MainActivity : ComponentActivity() {
                     NavigationFragmentContent(
                         appThemeState = appThemeState,
                         contentType = navigationState.value,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        errorMessage = errorMessage,
+                        searchState = searchState,
                     )
                     NavigationBarContent(contentType = navigationState)
                 }
@@ -133,20 +145,29 @@ class MainActivity : ComponentActivity() {
         )
     }
 
-    @ExperimentalComposeUiApi
     @Composable
     private fun NavigationFragmentContent(
         appThemeState: MutableState<AppThemeState>,
         modifier: Modifier = Modifier,
-        contentType: NavigationType
+        contentType: NavigationType,
+        errorMessage: MutableState<String>,
+        searchState: MutableState<SearchContentState>
     ) {
         Column(modifier = modifier) {
             Crossfade(contentType) { type ->
                 Surface(color = MaterialTheme.colors.background) {
                     when (type) {
-                        NavigationType.SEARCH -> SearchContent().Bind(appThemeState.value)
+                        NavigationType.SEARCH -> SearchContent().Bind(
+                            appThemeState.value,
+                            errorMessage,
+                            searchState
+                        )
+                        NavigationType.FAVORITE -> FavoriteContent(
+                            appThemeState = appThemeState.value,
+                            searchState = searchState,
+                            errorMessage = errorMessage
+                        )
                         NavigationType.SETTING -> SettingContent(appThemeState)
-                        else -> TestContent()
                     }
                 }
             }

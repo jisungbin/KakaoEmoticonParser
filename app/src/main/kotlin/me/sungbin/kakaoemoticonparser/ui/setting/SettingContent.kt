@@ -1,5 +1,6 @@
 package me.sungbin.kakaoemoticonparser.ui.setting
 
+import android.app.Activity
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import me.sungbin.androidutils.util.DialogUtil
 import me.sungbin.androidutils.util.Logger
 import me.sungbin.kakaoemoticonparser.R
 import me.sungbin.kakaoemoticonparser.theme.AppMaterialTheme
@@ -39,6 +41,7 @@ import me.sungbin.kakaoemoticonparser.theme.typography
 
 @Composable
 fun SettingContent(appThemeState: MutableState<AppThemeState>) {
+    val context = LocalContext.current
     val showMenu = remember { mutableStateOf(false) }
     BindThemeSettingMenu(showMenu, appThemeState)
     Column(
@@ -83,6 +86,12 @@ fun SettingContent(appThemeState: MutableState<AppThemeState>) {
             Button(
                 modifier = Modifier.padding(bottom = dimensionResource(R.dimen.margin_twice)),
                 onClick = {
+                    DialogUtil.showOnce(
+                        context as Activity,
+                        context.getString(R.string.experiment_function_label),
+                        context.getString(R.string.experiment_function_description),
+                        "color-theme-change"
+                    )
                     showMenu.value = !showMenu.value
                 }
             ) {
@@ -94,11 +103,17 @@ fun SettingContent(appThemeState: MutableState<AppThemeState>) {
             Button(
                 modifier = Modifier.padding(bottom = dimensionResource(R.dimen.margin_twice)),
                 onClick = {
-                    // appThemeState.value = appThemeState.value.copy(pallet = ColorPallet.ORANGE)
+                    DialogUtil.showLicense(
+                        context as Activity,
+                        "opensource-license",
+                        listOf(
+
+                        )
+                    )
                 }
             ) {
                 Text(
-                    text = "성빈?",
+                    text = stringResource(R.string.setting_opensource_license),
                     style = typography.button
                 )
             }

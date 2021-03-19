@@ -12,6 +12,9 @@ interface EmoticonDao {
     @Query("SELECT * FROM EmoticonEntity WHERE `title` = :title")
     suspend fun getFavoriteEmoticon(title: String): EmoticonEntity?
 
+    @Query("SELECT * FROM EmoticonEntity")
+    suspend fun getAllFavoriteEmoticon(): List<EmoticonEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(title: EmoticonEntity)
 

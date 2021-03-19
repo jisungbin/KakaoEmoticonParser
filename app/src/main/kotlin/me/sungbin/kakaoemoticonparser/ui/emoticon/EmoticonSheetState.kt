@@ -1,4 +1,4 @@
-package me.sungbin.kakaoemoticonparser.ui.search
+package me.sungbin.kakaoemoticonparser.ui.emoticon
 
 enum class EmoticonSheetState {
     DETAIL,

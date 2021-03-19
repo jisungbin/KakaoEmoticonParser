@@ -3,6 +3,9 @@
     <string name="app_name">카카오톡 이모티콘 추출기</string>
     <string name="copyright">ⓒ 2021 지성빈</string>
 
+    <string name="experiment_function_label">실험적 기능</string>
+    <string name="experiment_function_description">앱 테마 변경은 실험적인 기능입니다.\n앱 사용에 심각한 버그가 발생할 수 있습니다.</string>
+
     <string name="main_need_permission">이모티콘 다운로드 요청 시 내부메모리에 접근 권한이 필요해요.</string>
     <string name="main_search_emoticon">이모티콘 검색</string>
     <string name="main_search_first">검색을 진행해 주세요.</string>
@@ -15,5 +18,7 @@
     <string name="navigation_search">검색</string>
     <string name="navigation_favorite">즐겨찾기</string>
     <string name="navigation_setting">설정</string>
+
     <string name="setting_change_theme">앱 테마 설정</string>
+    <string name="setting_opensource_license">오픈소스 라이선스</string>
 </resources>

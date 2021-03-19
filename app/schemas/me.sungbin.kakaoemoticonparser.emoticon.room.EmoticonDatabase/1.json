@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "83f9cf2ee45da9432b73fe0871307849",
+    "identityHash": "fbae5ba6dae422f4349f08ac8af65b47",
     "entities": [
       {
         "tableName": "EmoticonEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `isBigEmo` INTEGER NOT NULL, `isSound` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "key",
@@ -18,6 +18,24 @@
             "fieldPath": "title",
             "columnName": "title",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isBigEmo",
+            "columnName": "isBigEmo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSound",
+            "columnName": "isSound",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -34,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '83f9cf2ee45da9432b73fe0871307849')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fbae5ba6dae422f4349f08ac8af65b47')"
     ]
   }
 }
