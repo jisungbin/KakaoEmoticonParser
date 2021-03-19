@@ -1,16 +1,19 @@
 package me.sungbin.kakaoemoticonparser.ui.favorite
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.sungbin.kakaoemoticonparser.emoticon.model.ContentItem
 import me.sungbin.kakaoemoticonparser.emoticon.room.EmoticonDatabase
 import me.sungbin.kakaoemoticonparser.theme.AppThemeState
+import me.sungbin.kakaoemoticonparser.ui.dialog.closeLoadingDialog
+import me.sungbin.kakaoemoticonparser.ui.dialog.showLoadingDialog
 import me.sungbin.kakaoemoticonparser.ui.emoticon.EmoticonContent
 import me.sungbin.kakaoemoticonparser.ui.search.SearchContentState
 
@@ -21,9 +24,11 @@ fun FavoriteContent(
     searchState: MutableState<SearchContentState>,
     errorMessage: MutableState<String>
 ) {
+    val context = LocalContext.current
+    val isLoadingDone = remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
     val emoticons = remember { mutableListOf<ContentItem>() }
-    CoroutineScope(Dispatchers.IO).launch {
-
+    coroutineScope.launch {
         EmoticonDatabase.instance(context).dao().getAllFavoriteEmoticon().forEach {
             val contentItem = ContentItem(
                 title = it.title,
@@ -41,6 +46,19 @@ fun FavoriteContent(
             )
             emoticons.add(contentItem)
         }
-        listener.OnLoadDone(emoticons)
+        isLoadingDone.value = true
+    }
+    Crossfade(isLoadingDone.value) { isLoaded ->
+        if (isLoaded) {
+            closeLoadingDialog()
+            EmoticonContent().BindListContent(
+                emoticons = emoticons.toList(),
+                appThemeState = appThemeState,
+                searchState = searchState,
+                errorMessage = errorMessage
+            )
+        } else {
+            showLoadingDialog(context)
+        }
     }
 }

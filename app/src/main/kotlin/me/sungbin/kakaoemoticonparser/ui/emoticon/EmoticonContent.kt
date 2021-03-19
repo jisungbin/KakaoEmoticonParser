@@ -1,5 +1,6 @@
 package me.sungbin.kakaoemoticonparser.ui.emoticon
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -106,21 +107,23 @@ class EmoticonContent {
             scaffoldState = bottomSheetScaffoldState,
             sheetPeekHeight = 0.dp,
             sheetContent = {
-                when (sheetType.value) {
-                    EmoticonSheetState.DETAIL -> EmoticonDetailContent(
-                        emoticon = clickedEmoticon.value,
-                        emoticonSheetState = sheetType
-                    )
-                    EmoticonSheetState.DOWNLOADING -> EmoticonDownloadingContent(
-                        appThemeState = appThemeState,
-                        emoticon = clickedEmoticon.value,
-                        emoticonSheetState = sheetType
-                    )
-                    EmoticonSheetState.DOWNLOADDONE -> EmoticonDownloadDoneContent(
-                        appThemeState = appThemeState,
-                        bottomSheetScaffoldState = bottomSheetScaffoldState,
-                        emoticonSheetState = sheetType
-                    )
+                Crossfade(sheetType.value) { type ->
+                    when (type) {
+                        EmoticonSheetState.DETAIL -> EmoticonDetailContent(
+                            emoticon = clickedEmoticon.value,
+                            emoticonSheetState = sheetType
+                        )
+                        EmoticonSheetState.DOWNLOADING -> EmoticonDownloadingContent(
+                            appThemeState = appThemeState,
+                            emoticon = clickedEmoticon.value,
+                            emoticonSheetState = sheetType
+                        )
+                        EmoticonSheetState.DOWNLOADDONE -> EmoticonDownloadDoneContent(
+                            appThemeState = appThemeState,
+                            bottomSheetScaffoldState = bottomSheetScaffoldState,
+                            emoticonSheetState = sheetType
+                        )
+                    }
                 }
             }
         ) {
@@ -231,7 +234,8 @@ class EmoticonContent {
                     ) {
                         var isFavorite by rememberSaveable { mutableStateOf(false) }
                         coroutineScope.launch {
-                            val favoriteEmoticon = emoticonDatabase.getFavoriteEmoticon(emoticon.title)
+                            val favoriteEmoticon =
+                                emoticonDatabase.getFavoriteEmoticon(emoticon.title)
                             isFavorite = favoriteEmoticon != null
                         }
                         Icon(
